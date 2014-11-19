@@ -3,6 +3,10 @@ django-decorator-include
 
 Include Django URL patterns with decorators.
 
+Maintened by Twidi, on https://github.com/twidi/django-decorator-include
+based on the  original work from Jeff Kistler on https://github.com/jeffkistler/django-decorator-include
+
+
 Installation
 ------------
 
@@ -14,13 +18,20 @@ command::
 
     python setup.py install
 
+Installation with pip
+`````````````````````````````
+
+Assuming you have pip installed, run the following command to install from pypi::
+
+    pip install django-decorator-include
+
 Installation with pip and git
 `````````````````````````````
 
 Assuming you have pip and git installed, run the following command to
 install from the GitHub repository::
 
-    pip install git+git://github.com/jeffkistler/django-decorator-include.git#egg=django-decorator-include
+    pip install git+git://github.com/twidi/django-decorator-include.git#egg=django-decorator-include
 
 Usage
 -----

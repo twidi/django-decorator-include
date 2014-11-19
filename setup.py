@@ -1,5 +1,8 @@
+#!/usr/bin/env python
+
 import os
 from distutils.core import setup
+
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
@@ -12,7 +15,7 @@ setup(
     long_description = read('README.rst'),
     author = 'Jeff Kistler',
     author_email = 'jeff@jeffkistler.com',
-    url = 'https://github.com/jeffkistler/django-decorator-include/',
+    url = 'https://github.com/twidi/django-decorator-include/',
     packages = ['decorator_include', 'decorator_include.tests'],
     package_dir = {'': 'src'},
     classifiers = [

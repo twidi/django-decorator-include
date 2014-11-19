@@ -1,6 +1,7 @@
 *.pyc
 *.pyo
 *~
+*.sw[po]
 .DS_Store
 .coverage
 .installed.cfg
@@ -12,3 +13,4 @@ downloads/*
 bin/*
 develop-eggs/*
 src/*.egg-info
+build/
