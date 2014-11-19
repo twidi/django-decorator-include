@@ -1,7 +1,10 @@
+from __future__ import unicode_literals
 import os.path
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
+SECRET_KEY = '8qw5o&7!g&4kg#+4jr6y%qoj6(1s1ufjqo1#x)fqaca&)$2)ba'
 
 BASE_DIR = os.path.dirname(__file__)
 
@@ -22,3 +25,12 @@ INSTALLED_APPS = (
 )
 
 ROOT_URLCONF = 'decorator_include.tests.urls'
+
+MIDDLEWARE_CLASSES = (
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)

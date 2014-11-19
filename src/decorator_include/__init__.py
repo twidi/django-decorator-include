@@ -1,11 +1,14 @@
 """
-A replacement for ``django.conf.urls.defaults.include`` that takes a decorator,
+A replacement for ``django.conf.urls.include`` that takes a decorator,
 or an iterable of view decorators as the first argument and applies them, in
 reverse order, to all views in the included urlconf.
 """
+from __future__ import unicode_literals
+from builtins import object
 from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import RegexURLPattern, RegexURLResolver
 from django.utils.importlib import import_module
+
 
 class DecoratedPatterns(object):
     """
@@ -18,7 +21,7 @@ class DecoratedPatterns(object):
         except TypeError:
             decorators = [decorators]
         self.decorators = decorators
-        if not isinstance(urlconf_name, basestring):
+        if not isinstance(urlconf_name, str):
             self._urlconf_module = self.urlconf_name
         else:
             self._urlconf_module = None
@@ -67,7 +70,7 @@ class DecoratedPatterns(object):
 
 def decorator_include(decorators, arg, namespace=None, app_name=None):
     """
-    Works like ``django.conf.urls.defaults.include`` but takes a view decorator
+    Works like ``django.conf.urls.include`` but takes a view decorator
     or an iterable of view decorators as the first argument and applies them,
     in reverse order, to all views in the included urlconf.
     """
