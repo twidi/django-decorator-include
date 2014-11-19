@@ -1,8 +1,10 @@
-from django.conf.urls.defaults import *
+from __future__ import unicode_literals
+from django.conf.urls import patterns, url
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
 from decorator_include import decorator_include
+
 
 def index(request):
     return HttpResponse('Index!')

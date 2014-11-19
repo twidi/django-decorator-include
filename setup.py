@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+from __future__ import unicode_literals
 
 import os
 from distutils.core import setup
@@ -9,7 +9,7 @@ def read(fname):
 
 setup(
     name = 'django-decorator-include',
-    version = '0.1',
+    version = '0.2',
     license = 'BSD',
     description = 'Include Django URL patterns with decorators.',
     long_description = read('README.rst'),
@@ -25,5 +25,11 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Topic :: Internet :: WWW/HTTP',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.2',
+        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4',
     ]
 )

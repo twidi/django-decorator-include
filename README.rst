@@ -37,12 +37,12 @@ Usage
 -----
 
 ``decorator_include`` is intended for use in URL confs as a replacement
-for the ``django.conf.urls.defaults.include`` function. It works in almost
+for the ``django.conf.urls.include`` function. It works in almost
 the same way as ``include``, however the first argument should be either a
 decorator or an iterable of decorators to apply, in reverse order, to all
 included views. Here is an example URL conf::
 
-    from django.conf.urls.defaults import *
+    from django.conf.urls import patterns, url
     from django.contrib.auth.decorators import login_required
 
     from decorator_include import decorator_include
