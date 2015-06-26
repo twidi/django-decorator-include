@@ -3,11 +3,17 @@ A replacement for ``django.conf.urls.include`` that takes a decorator,
 or an iterable of view decorators as the first argument and applies them, in
 reverse order, to all views in the included urlconf.
 """
+
 from __future__ import unicode_literals
 from builtins import object, str
 from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import RegexURLPattern, RegexURLResolver
-from django.utils.importlib import import_module
+
+try:
+    from importlib import import_module
+except ImportError:
+    # For python 2.6
+    from django.utils.importlib import import_module
 
 
 class DecoratedPatterns(object):
