@@ -64,6 +64,9 @@ class DecoratedPatterns(object):
         return [self.decorate_pattern(pattern) for pattern in patterns]
     urlpatterns = property(_get_urlpatterns)
 
+    def __iter__(self):
+        return iter(self._get_urlpatterns())
+
     def __getattr__(self, name):
         return getattr(self.urlconf_module, name)
 
