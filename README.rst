@@ -19,9 +19,9 @@ command::
     python setup.py install
 
 Installation with pip
-`````````````````````````````
+`````````````````````
 
-Assuming you have pip installed, run the following command to install from pypi::
+Assuming you have pip installed, run the following command to install from PyPI::
 
     pip install django-decorator-include
 
@@ -47,15 +47,15 @@ the same way as ``include``, however the first argument should be either a
 decorator or an iterable of decorators to apply, in reverse order, to all
 included views. Here is an example URL conf::
 
-    from django.conf.urls import patterns, url
+    from django.conf.urls import url
     from django.contrib.auth.decorators import login_required
 
     from decorator_include import decorator_include
 
-    urlpatterns = patterns('',
+    urlpatterns = [
         url(r'^$', 'mysite.views.index', name='index'),
         url(r'^secret/', decorator_include(login_required, 'mysite.secret.urls'),
-    )
+    ]
 
 Running tests
 -------------
