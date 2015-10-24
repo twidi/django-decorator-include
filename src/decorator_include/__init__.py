@@ -5,9 +5,9 @@ reverse order, to all views in the included urlconf.
 """
 from __future__ import unicode_literals
 from builtins import object
+from importlib import import_module
 from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import RegexURLPattern, RegexURLResolver
-from django.utils.importlib import import_module
 
 
 class DecoratedPatterns(object):
@@ -15,16 +15,15 @@ class DecoratedPatterns(object):
     A wrapper for an urlconf that applies a decorator to all its views.
     """
     def __init__(self, urlconf_name, decorators):
-        self.urlconf_name = urlconf_name
         try:
             iter(decorators)
         except TypeError:
             decorators = [decorators]
         self.decorators = decorators
-        if not isinstance(urlconf_name, str):
-            self._urlconf_module = self.urlconf_name
+        if isinstance(urlconf_name, str):
+            self.urlconf_module = import_module(urlconf_name)
         else:
-            self._urlconf_module = None
+            self.urlconf_module = urlconf_name
 
     def decorate_pattern(self, pattern):
         if isinstance(pattern, RegexURLResolver):
@@ -49,12 +48,6 @@ class DecoratedPatterns(object):
                 pattern.name
             )
         return decorated
-
-    def _get_urlconf_module(self):
-        if self._urlconf_module is None:
-            self._urlconf_module = import_module(self.urlconf_name)
-        return self._urlconf_module
-    urlconf_module = property(_get_urlconf_module)
 
     def _get_urlpatterns(self):
         try:
