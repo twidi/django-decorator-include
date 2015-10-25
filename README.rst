@@ -56,3 +56,29 @@ included views. Here is an example URL conf::
         url(r'^$', 'mysite.views.index', name='index'),
         url(r'^secret/', decorator_include(login_required, 'mysite.secret.urls'),
     )
+
+Running tests
+-------------
+
+If `decorator_include` is in the `INSTALLE_APPS` of your project, simply run::
+
+    django-admin test decorator_include
+
+(you may want to use ``django-admin`` or  ``./manage.py`` depending on your installation)
+
+If you are in a fresh virtualenv to work on ``decorator_include``, install the django version you want::
+
+    pip install django
+
+Then make the ``decorator_include`` module available in your python path. For example, with ``virtualenv-wrapper``, considering you are at the root of the ``django-decorator-include`` repository, simply do::
+
+    add2virtualenv src
+
+Then to run the tests, this library provides a test project, so you can launch them this way::
+
+    DJANGO_SETTINGS_MODULE=decorator_include.tests.testproject.settings django-admin.py test decorator_include
+
+Or simply launch the ``runtests.sh`` script (it will run this exact command)::
+
+    ./runtests.sh
+
