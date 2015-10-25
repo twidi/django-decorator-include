@@ -1,15 +1,16 @@
 from __future__ import unicode_literals
 from django.test import TestCase
 
-class IncludeDecoratedTests(TestCase):
+
+class IncludeDecoratedTestCase(TestCase):
     urls = 'decorator_include.tests.urls'
 
-    def getDecoratorInclude(self):
+    def get_decorator_include(self):
         from decorator_include import decorator_include
         return decorator_include
 
-    def testBasic(self):
-        decorator_include = self.getDecoratorInclude()
+    def test_basic(self):
+        decorator_include = self.get_decorator_include()
 
         def test_decorator(func):
             func.tested = True
@@ -19,13 +20,13 @@ class IncludeDecoratedTests(TestCase):
             test_decorator,
             'decorator_include.tests.urls'
         )
-        self.assertEqual(3, len(result))
-        self.assertTrue('DecoratedPatterns', result[0].__class__.__name__)
+        self.assertEqual(len(result), 3)
+        self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
         self.assertIsNone(result[1])
         self.assertIsNone(result[2])
 
-    def testBasicNamespace(self):
-        decorator_include = self.getDecoratorInclude()
+    def test_basic_namespace(self):
+        decorator_include = self.get_decorator_include()
 
         def test_decorator(func):
             func.tested = True
@@ -36,13 +37,13 @@ class IncludeDecoratedTests(TestCase):
             'decorator_include.tests.urls',
             'test'
         )
-        self.assertEqual(3, len(result))
-        self.assertTrue('DecoratedPatterns', result[0].__class__.__name__)
+        self.assertEqual(len(result), 3)
+        self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
         self.assertIsNone(result[1])
-        self.assertEqual('test', result[2])
+        self.assertEqual(result[2], 'test')
 
-    def testGetURLPatterns(self):
-        decorator_include = self.getDecoratorInclude()
+    def test_get_urlpatterns(self):
+        decorator_include = self.get_decorator_include()
 
         def test_decorator(func):
             func.decorator_flag = 'test'
@@ -52,14 +53,14 @@ class IncludeDecoratedTests(TestCase):
             test_decorator,
             'decorator_include.tests.urls'
         )
-        self.assertEqual(3, len(result))
-        self.assertTrue('DecoratedPatterns', result[0].__class__.__name__)
+        self.assertEqual(len(result), 3)
+        self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
         patterns = result[0].urlpatterns
-        self.assertEqual(2, len(patterns))
-        self.assertEqual('test', patterns[0].callback.decorator_flag)
+        self.assertEqual(len(patterns), 2)
+        self.assertEqual(patterns[0].callback.decorator_flag, 'test')
 
-    def testMultipleDecorators(self):
-        decorator_include = self.getDecoratorInclude()
+    def test_multiple_decorators(self):
+        decorator_include = self.get_decorator_include()
 
         def first_decorator(func):
             func.decorator_flag = 'first'
@@ -74,14 +75,14 @@ class IncludeDecoratedTests(TestCase):
             (first_decorator, second_decorator),
             'decorator_include.tests.urls'
         )
-        self.assertTrue('DecoratedPatterns', result[0].__class__.__name__)
+        self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
         patterns = result[0].urlpatterns
         pattern = patterns[0]
-        self.assertEqual('first', pattern.callback.decorator_flag)
-        self.assertEqual('second', pattern.callback.decorated_by)
+        self.assertEqual(pattern.callback.decorator_flag, 'first')
+        self.assertEqual(pattern.callback.decorated_by, 'second')
 
-    def testFollowInclude(self):
-        decorator_include = self.getDecoratorInclude()
+    def test_follow_include(self):
+        decorator_include = self.get_decorator_include()
 
         def test_decorator(func):
             func.decorator_flag = 'test'
@@ -93,18 +94,18 @@ class IncludeDecoratedTests(TestCase):
         )
         patterns = result[0].urlpatterns
         decorated = patterns[1]
-        self.assertEqual('test', decorated.url_patterns[1].callback.decorator_flag)
+        self.assertEqual(decorated.url_patterns[1].callback.decorator_flag, 'test')
         decorated = patterns[1].url_patterns[0].url_patterns[0]
-        self.assertEqual('test', decorated.callback.decorator_flag)
+        self.assertEqual(decorated.callback.decorator_flag, 'test')
 
-    def testGetIndex(self):
+    def test_get_index(self):
         response = self.client.get('/')
-        self.assertEqual(200, response.status_code)
+        self.assertEqual(response.status_code, 200)
 
-    def testGetTest(self):
+    def test_get_test(self):
         response = self.client.get('/include/test/')
-        self.assertEqual(302, response.status_code)
+        self.assertEqual(response.status_code, 302)
 
-    def testGetDeeplyNested(self):
+    def test_get_deeply_nested(self):
         response = self.client.get('/include/included/deeply_nested/')
-        self.assertEqual(302, response.status_code)
+        self.assertEqual(response.status_code, 302)
