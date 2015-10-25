@@ -4,7 +4,7 @@ or an iterable of view decorators as the first argument and applies them, in
 reverse order, to all views in the included urlconf.
 """
 from __future__ import unicode_literals
-from builtins import object
+from builtins import object, str
 from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import RegexURLPattern, RegexURLResolver
 from django.utils.importlib import import_module
