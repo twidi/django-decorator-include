@@ -1,7 +1,7 @@
-from __future__ import unicode_literals
+#!/usr/bin/env python
 
 import os
-from distutils.core import setup
+from setuptools import setup, find_packages
 
 
 def read(fname):
@@ -9,27 +9,36 @@ def read(fname):
 
 setup(
     name = 'django-decorator-include',
-    version = '0.2',
+    version = '1.0',
     license = 'BSD',
     description = 'Include Django URL patterns with decorators.',
     long_description = read('README.rst'),
     author = 'Jeff Kistler',
     author_email = 'jeff@jeffkistler.com',
     url = 'https://github.com/twidi/django-decorator-include/',
-    packages = ['decorator_include', 'decorator_include.tests'],
+    packages = ['decorator_include', 'decorator_include.tests', 'decorator_include.tests.testproject'],
     package_dir = {'': 'src'},
+    install_requires=['future'],
     classifiers = [
         'Framework :: Django',
+        "Framework :: Django :: 1.4",
+        "Framework :: Django :: 1.5",
+        "Framework :: Django :: 1.6",
+        "Framework :: Django :: 1.7",
+        "Framework :: Django :: 1.8",
+#        "Framework :: Django :: 1.9",
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Topic :: Internet :: WWW/HTTP',
         'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.2',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
+#        'Programming Language :: Python :: 3.5',
     ]
 )
