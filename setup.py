@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 import os
 from distutils.core import setup
 
@@ -9,7 +7,7 @@ def read(fname):
 
 setup(
     name = 'django-decorator-include',
-    version = '0.2',
+    version = '0.2.99',
     license = 'BSD',
     description = 'Include Django URL patterns with decorators.',
     long_description = read('README.rst'),
@@ -18,6 +16,7 @@ setup(
     url = 'https://github.com/twidi/django-decorator-include/',
     packages = ['decorator_include', 'decorator_include.tests'],
     package_dir = {'': 'src'},
+    install_requires=['future'],
     classifiers = [
         'Framework :: Django',
         'Intended Audience :: Developers',
