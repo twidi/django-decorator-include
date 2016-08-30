@@ -18,7 +18,7 @@ setup(
     url = 'https://github.com/twidi/django-decorator-include/',
     packages = ['decorator_include', 'decorator_include.tests', 'decorator_include.tests.testproject'],
     package_dir = {'': 'src'},
-    install_requires=['future'],
+    install_requires=['Django'],
     classifiers = [
         'Framework :: Django',
         "Framework :: Django :: 1.4",
