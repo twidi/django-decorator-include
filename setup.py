@@ -1,25 +1,28 @@
 #!/usr/bin/env python
 
 import os
-from setuptools import setup, find_packages
+from setuptools import setup
 
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
+
 setup(
-    name = 'django-decorator-include',
-    version = '1.1',
-    license = 'BSD',
-    description = 'Include Django URL patterns with decorators.',
-    long_description = read('README.rst'),
-    author = 'Jeff Kistler',
-    author_email = 'jeff@jeffkistler.com',
-    url = 'https://github.com/twidi/django-decorator-include/',
-    packages = ['decorator_include'],
-    package_dir = {'': 'src'},
+    name='django-decorator-include',
+    version='1.1',
+    license='BSD',
+    description='Include Django URL patterns with decorators.',
+    long_description=read('README.rst'),
+    author='Jeff Kistler',
+    author_email='jeff@jeffkistler.com',
+    url='https://github.com/twidi/django-decorator-include/',
+    packages=[
+        'decorator_include',
+    ],
+    package_dir={'': 'src'},
     install_requires=['Django'],
-    classifiers = [
+    classifiers=[
         'Framework :: Django',
         "Framework :: Django :: 1.4",
         "Framework :: Django :: 1.5",
