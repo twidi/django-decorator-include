@@ -60,7 +60,7 @@ included views. Here is an example URL conf::
 Running tests
 -------------
 
-If `decorator_include` is in the `INSTALLED_APPS` of your project, simply run::
+If `decorator_include` is in the `INSTALLED_APPS` of your project, and it was installed with the test (ie not from PyPI) simply run::
 
     django-admin test decorator_include
 
