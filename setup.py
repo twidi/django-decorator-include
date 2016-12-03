@@ -16,7 +16,7 @@ setup(
     author = 'Jeff Kistler',
     author_email = 'jeff@jeffkistler.com',
     url = 'https://github.com/twidi/django-decorator-include/',
-    packages = ['decorator_include', 'decorator_include.tests', 'decorator_include.tests.testproject'],
+    packages = ['decorator_include'],
     package_dir = {'': 'src'},
     install_requires=['future'],
     classifiers = [
