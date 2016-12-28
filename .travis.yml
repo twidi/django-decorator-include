@@ -19,6 +19,7 @@ env:
  - DJANGO="Django>=1.7,<1.8"
  - DJANGO="Django>=1.8,<1.9"
  - DJANGO="Django>=1.9,<1.10"
+ - DJANGO="Django>=1.10,<1.11"
 
 install:
  - pip install $DJANGO
@@ -53,6 +54,8 @@ matrix:
       env: DJANGO="Django>=1.5,<1.6"
     - python: "3.3"
       env: DJANGO="Django>=1.9,<1.10"
+    - python: "3.3"
+      env: DJANGO="Django>=1.10,<1.11"
 
     - python: "3.2"
       env: DJANGO="Django>=1.4,<1.5"
@@ -60,6 +63,8 @@ matrix:
       env: DJANGO="Django>=1.5,<1.6"
     - python: "3.2"
       env: DJANGO="Django>=1.9,<1.10"
+    - python: "3.2"
+      env: DJANGO="Django>=1.10,<1.11"
 
     - python: "2.6"
       env: DJANGO="Django>=1.7,<1.8"
@@ -67,4 +72,5 @@ matrix:
       env: DJANGO="Django>=1.8,<1.9"
     - python: "2.6"
       env: DJANGO="Django>=1.9,<1.10"
-
+    - python: "2.6"
+      env: DJANGO="Django>=1.10,<1.11"
