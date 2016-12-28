@@ -5,9 +5,9 @@ reverse order, to all views in the included urlconf.
 """
 
 from __future__ import unicode_literals
-from builtins import object, str
 from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import RegexURLPattern, RegexURLResolver
+from django.utils import six
 
 try:
     from importlib import import_module
@@ -27,7 +27,7 @@ class DecoratedPatterns(object):
         except TypeError:
             decorators = [decorators]
         self.decorators = decorators
-        if not isinstance(urlconf_name, str):
+        if not isinstance(urlconf_name, six.string_types):
             self._urlconf_module = self.urlconf_name
         else:
             self._urlconf_module = None
