@@ -1,6 +1,10 @@
 Changelog
 =========
 
+Release *v1.2* - ``2016-12-28``
+---------------------------------
+* official support for Django 1.10
+
 Release *v1.1* - ``2016-12-15``
 -------------------------------
 * stop importing module in ``__init__``
