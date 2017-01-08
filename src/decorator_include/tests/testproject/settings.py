@@ -11,7 +11,6 @@ BASE_DIR = os.path.dirname(__file__)
 def absolute_path(path):
     return os.path.normpath(os.path.join(BASE_DIR, path))
 
-SITE_ID = 1
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
