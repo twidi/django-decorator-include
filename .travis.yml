@@ -5,7 +5,6 @@ cache:
     - $HOME/.cache/pip
 
 python:
- - "2.6"
  - "2.7"
  - "3.2"
  - "3.3"
@@ -13,10 +12,6 @@ python:
  - "3.5"
 
 env:
- - DJANGO="Django>=1.4,<1.5"
- - DJANGO="Django>=1.5,<1.6"
- - DJANGO="Django>=1.6,<1.7"
- - DJANGO="Django>=1.7,<1.8"
  - DJANGO="Django>=1.8,<1.9"
  - DJANGO="Django>=1.9,<1.10"
  - DJANGO="Django>=1.10,<1.11"
@@ -30,47 +25,12 @@ script: "./runtests.sh"
 matrix:
   exclude:
 
-    - python: "3.5"
-      env: DJANGO="Django>=1.4,<1.5"
-    - python: "3.5"
-      env: DJANGO="Django>=1.5,<1.6"
-    - python: "3.5"
-      env: DJANGO="Django>=1.6,<1.7"
-    - python: "3.5"
-      env: DJANGO="Django>=1.7,<1.8"
-    - python: "3.5"
-      env: DJANGO="Django>=1.8,<1.9"
-
-    - python: "3.4"
-      env: DJANGO="Django>=1.4,<1.5"
-    - python: "3.4"
-      env: DJANGO="Django>=1.5,<1.6"
-    - python: "3.4"
-      env: DJANGO="Django>=1.6,<1.7"
-
-    - python: "3.3"
-      env: DJANGO="Django>=1.4,<1.5"
-    - python: "3.3"
-      env: DJANGO="Django>=1.5,<1.6"
     - python: "3.3"
       env: DJANGO="Django>=1.9,<1.10"
     - python: "3.3"
       env: DJANGO="Django>=1.10,<1.11"
 
     - python: "3.2"
-      env: DJANGO="Django>=1.4,<1.5"
-    - python: "3.2"
-      env: DJANGO="Django>=1.5,<1.6"
-    - python: "3.2"
       env: DJANGO="Django>=1.9,<1.10"
     - python: "3.2"
-      env: DJANGO="Django>=1.10,<1.11"
-
-    - python: "2.6"
-      env: DJANGO="Django>=1.7,<1.8"
-    - python: "2.6"
-      env: DJANGO="Django>=1.8,<1.9"
-    - python: "2.6"
-      env: DJANGO="Django>=1.9,<1.10"
-    - python: "2.6"
       env: DJANGO="Django>=1.10,<1.11"

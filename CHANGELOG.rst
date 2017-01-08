@@ -1,6 +1,10 @@
 Changelog
 =========
 
+UNRELEASED
+----------
+* Removed support for Django < 1.8
+
 Release *v1.2* - ``2016-12-28``
 ---------------------------------
 * official support for Django 1.10
