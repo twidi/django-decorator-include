@@ -3,8 +3,6 @@ from django.test import TestCase
 
 
 class IncludeDecoratedTestCase(TestCase):
-    urls = 'decorator_include.tests.urls'
-
     def get_decorator_include(self):
         from decorator_include import decorator_include
         return decorator_include
