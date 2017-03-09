@@ -75,13 +75,25 @@ def decorator_include(decorators, arg, namespace=None, app_name=None):
     or an iterable of view decorators as the first argument and applies them,
     in reverse order, to all views in the included urlconf.
     """
+    if app_name and not namespace:
+        raise ValueError('Must specify a namespace if specifying app_name.')
+
     if isinstance(arg, tuple):
-        if namespace:
-            raise ImproperlyConfigured(
-                'Cannot override the namespace for a dynamic module that provides a namespace'
-            )
-        urlconf, app_name, namespace = arg
+        # callable returning a namespace hint
+        try:
+            urlconf, app_name = arg
+        except ValueError:
+            # Passing a 3-tuple to include() is deprecated and will be removed
+            # in Django 2.0.
+            if namespace:
+                raise ImproperlyConfigured(
+                    'Cannot override the namespace for a dynamic module that provides a namespace'
+                )
+            urlconf, app_name, namespace = arg
     else:
+        # No namespace hint - use manually provided namespace
         urlconf = arg
+
     decorated_urlconf = DecoratedPatterns(urlconf, decorators)
+    namespace = namespace or app_name
     return (decorated_urlconf, app_name, namespace)

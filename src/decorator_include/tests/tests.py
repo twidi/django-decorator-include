@@ -40,6 +40,55 @@ class IncludeDecoratedTestCase(TestCase):
         self.assertIsNone(result[1])
         self.assertEqual(result[2], 'test')
 
+    def test_basic_2_tuple(self):
+        decorator_include = self.get_decorator_include()
+
+        def test_decorator(func):
+            func.tested = True
+            return func
+
+        result = decorator_include(
+            test_decorator,
+            ('decorator_include.tests.urls', 'test')
+        )
+        self.assertEqual(len(result), 3)
+        self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
+        self.assertEqual(result[1], 'test')
+        self.assertEqual(result[2], 'test')
+
+    def test_basic_2_tuple_namespace(self):
+        decorator_include = self.get_decorator_include()
+
+        def test_decorator(func):
+            func.tested = True
+            return func
+
+        result = decorator_include(
+            test_decorator,
+            ('decorator_include.tests.urls', 'testapp'),
+            'testns'
+        )
+        self.assertEqual(len(result), 3)
+        self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
+        self.assertEqual(result[1], 'testapp')
+        self.assertEqual(result[2], 'testns')
+
+    def test_basic_3_tuple(self):
+        decorator_include = self.get_decorator_include()
+
+        def test_decorator(func):
+            func.tested = True
+            return func
+
+        result = decorator_include(
+            test_decorator,
+            ('decorator_include.tests.urls', 'testapp', 'testns')
+        )
+        self.assertEqual(len(result), 3)
+        self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
+        self.assertEqual(result[1], 'testapp')
+        self.assertEqual(result[2], 'testns')
+
     def test_get_urlpatterns(self):
         decorator_include = self.get_decorator_include()
 
