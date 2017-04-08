@@ -3,7 +3,7 @@ django-decorator-include
 
 Include Django URL patterns with decorators.
 
-Maintened by Twidi, on https://github.com/twidi/django-decorator-include
+Maintained by Twidi, on https://github.com/twidi/django-decorator-include
 based on the  original work from Jeff Kistler on https://github.com/jeffkistler/django-decorator-include
 
 
