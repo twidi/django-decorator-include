@@ -3,7 +3,7 @@ Changelog
 
 UNRELEASED
 ----------
-* Removed support for Django < 1.8
+* Removed support for Django < 1.8 and Python 2.6
 * Added support for Django 1.11 and Python 3.6
 
 Release *v1.2* - ``2016-12-28``
