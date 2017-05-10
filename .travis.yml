@@ -36,7 +36,10 @@ matrix:
       env: DJANGO="Django>=1.11,<2.0"
 
 install:
- - pip install $DJANGO
- - pip install -e .
+  - pip install flake8
+  - pip install $DJANGO
+  - pip install -e .
+
+before_script: flake8
 
 script: ./runtests.sh
