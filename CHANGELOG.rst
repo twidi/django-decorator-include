@@ -5,6 +5,8 @@ UNRELEASED
 ----------
 * Removed support for Django < 1.8
 * Added support for Django 1.11 and Python 3.6
+* Added support for passing a 2-tuple to ``decorator_include()`` as allowed by
+  Django's ``include()``.
 
 Release *v1.2* - ``2016-12-28``
 ---------------------------------
