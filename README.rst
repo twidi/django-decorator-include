@@ -54,7 +54,7 @@ included views. Here is an example URL conf::
 
     urlpatterns = [
         url(r'^$', 'mysite.views.index', name='index'),
-        url(r'^secret/', decorator_include(login_required, 'mysite.secret.urls'),
+        url(r'^secret/', decorator_include(login_required, 'mysite.secret.urls')),
     ]
 
 Running tests
