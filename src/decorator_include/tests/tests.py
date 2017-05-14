@@ -104,7 +104,11 @@ class IncludeDecoratedTestCase(TestCase):
         self.assertEqual(len(result), 3)
         self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
         patterns = result[0].urlpatterns
-        self.assertEqual(len(patterns), 2)
+        # 3 URL patterns
+        #   /
+        #   /include/
+        #   /admin/
+        self.assertEqual(len(patterns), 3)
         self.assertEqual(patterns[0].callback.decorator_flag, 'test')
 
     def test_multiple_decorators(self):
