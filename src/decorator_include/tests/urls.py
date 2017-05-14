@@ -1,7 +1,8 @@
 from __future__ import unicode_literals
+
 from django.conf.urls import url
-from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 
 from decorator_include import decorator_include
 
