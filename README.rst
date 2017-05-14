@@ -33,11 +33,6 @@ install from the GitHub repository::
 
     pip install git+git://github.com/twidi/django-decorator-include.git#egg=django-decorator-include
 
-Requirements
-------------
-
-The only required package is ``future``, used for compatibility with python 2 and python 3
-
 Usage
 -----
 
