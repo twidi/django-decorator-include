@@ -12,7 +12,7 @@ def read(fname):
 
 setup(
     name='django-decorator-include',
-    version='1.2',
+    version='1.3',
     license='BSD',
     description='Include Django URL patterns with decorators.',
     long_description=read('README.rst'),
