@@ -1,10 +1,9 @@
 from __future__ import unicode_literals
+
 from django.test import TestCase
 
 
 class IncludeDecoratedTestCase(TestCase):
-    urls = 'decorator_include.tests.urls'
-
     def get_decorator_include(self):
         from decorator_include import decorator_include
         return decorator_include
@@ -42,6 +41,55 @@ class IncludeDecoratedTestCase(TestCase):
         self.assertIsNone(result[1])
         self.assertEqual(result[2], 'test')
 
+    def test_basic_2_tuple(self):
+        decorator_include = self.get_decorator_include()
+
+        def test_decorator(func):
+            func.tested = True
+            return func
+
+        result = decorator_include(
+            test_decorator,
+            ('decorator_include.tests.urls', 'test')
+        )
+        self.assertEqual(len(result), 3)
+        self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
+        self.assertEqual(result[1], 'test')
+        self.assertEqual(result[2], 'test')
+
+    def test_basic_2_tuple_namespace(self):
+        decorator_include = self.get_decorator_include()
+
+        def test_decorator(func):
+            func.tested = True
+            return func
+
+        result = decorator_include(
+            test_decorator,
+            ('decorator_include.tests.urls', 'testapp'),
+            'testns'
+        )
+        self.assertEqual(len(result), 3)
+        self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
+        self.assertEqual(result[1], 'testapp')
+        self.assertEqual(result[2], 'testns')
+
+    def test_basic_3_tuple(self):
+        decorator_include = self.get_decorator_include()
+
+        def test_decorator(func):
+            func.tested = True
+            return func
+
+        result = decorator_include(
+            test_decorator,
+            ('decorator_include.tests.urls', 'testapp', 'testns')
+        )
+        self.assertEqual(len(result), 3)
+        self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
+        self.assertEqual(result[1], 'testapp')
+        self.assertEqual(result[2], 'testns')
+
     def test_get_urlpatterns(self):
         decorator_include = self.get_decorator_include()
 
@@ -56,7 +104,11 @@ class IncludeDecoratedTestCase(TestCase):
         self.assertEqual(len(result), 3)
         self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
         patterns = result[0].urlpatterns
-        self.assertEqual(len(patterns), 2)
+        # 3 URL patterns
+        #   /
+        #   /include/
+        #   /admin/
+        self.assertEqual(len(patterns), 3)
         self.assertEqual(patterns[0].callback.decorator_flag, 'test')
 
     def test_multiple_decorators(self):

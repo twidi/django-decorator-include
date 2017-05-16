@@ -5,15 +5,15 @@ reverse order, to all views in the included urlconf.
 """
 
 from __future__ import unicode_literals
+
+from importlib import import_module
+
 from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import RegexURLPattern, RegexURLResolver
 from django.utils import six
 
-try:
-    from importlib import import_module
-except ImportError:
-    # For python 2.6
-    from django.utils.importlib import import_module
+
+VERSION = (1, 3)
 
 
 class DecoratedPatterns(object):
@@ -80,13 +80,25 @@ def decorator_include(decorators, arg, namespace=None, app_name=None):
     or an iterable of view decorators as the first argument and applies them,
     in reverse order, to all views in the included urlconf.
     """
+    if app_name and not namespace:
+        raise ValueError('Must specify a namespace if specifying app_name.')
+
     if isinstance(arg, tuple):
-        if namespace:
-            raise ImproperlyConfigured(
-                'Cannot override the namespace for a dynamic module that provides a namespace'
-            )
-        urlconf, app_name, namespace = arg
+        # callable returning a namespace hint
+        try:
+            urlconf, app_name = arg
+        except ValueError:
+            # Passing a 3-tuple to include() is deprecated and will be removed
+            # in Django 2.0.
+            if namespace:
+                raise ImproperlyConfigured(
+                    'Cannot override the namespace for a dynamic module that provides a namespace'
+                )
+            urlconf, app_name, namespace = arg
     else:
+        # No namespace hint - use manually provided namespace
         urlconf = arg
+
     decorated_urlconf = DecoratedPatterns(urlconf, decorators)
+    namespace = namespace or app_name
     return (decorated_urlconf, app_name, namespace)
