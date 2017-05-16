@@ -13,6 +13,9 @@ from django.core.urlresolvers import RegexURLPattern, RegexURLResolver
 from django.utils import six
 
 
+VERSION = (1, 3)
+
+
 class DecoratedPatterns(object):
     """
     A wrapper for an urlconf that applies a decorator to all its views.
