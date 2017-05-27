@@ -36,10 +36,8 @@ matrix:
       env: DJANGO="Django>=1.11,<2.0"
 
 install:
-  - pip install flake8
-  - pip install isort
   - pip install $DJANGO
-  - pip install -e .
+  - pip install -r requirements.txt
 
 before_script:
   - flake8
