@@ -15,10 +15,7 @@ class IncludeDecoratedTestCase(TestCase):
             func.tested = True
             return func
 
-        result = decorator_include(
-            test_decorator,
-            'decorator_include.tests.urls'
-        )
+        result = decorator_include(test_decorator, 'tests.urls')
         self.assertEqual(len(result), 3)
         self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
         self.assertIsNone(result[1])
@@ -31,11 +28,7 @@ class IncludeDecoratedTestCase(TestCase):
             func.tested = True
             return func
 
-        result = decorator_include(
-            test_decorator,
-            'decorator_include.tests.urls',
-            'test'
-        )
+        result = decorator_include(test_decorator, 'tests.urls', 'test')
         self.assertEqual(len(result), 3)
         self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
         self.assertIsNone(result[1])
@@ -48,10 +41,7 @@ class IncludeDecoratedTestCase(TestCase):
             func.tested = True
             return func
 
-        result = decorator_include(
-            test_decorator,
-            ('decorator_include.tests.urls', 'test')
-        )
+        result = decorator_include(test_decorator, ('tests.urls', 'test'))
         self.assertEqual(len(result), 3)
         self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
         self.assertEqual(result[1], 'test')
@@ -64,11 +54,7 @@ class IncludeDecoratedTestCase(TestCase):
             func.tested = True
             return func
 
-        result = decorator_include(
-            test_decorator,
-            ('decorator_include.tests.urls', 'testapp'),
-            'testns'
-        )
+        result = decorator_include(test_decorator, ('tests.urls', 'testapp'), 'testns')
         self.assertEqual(len(result), 3)
         self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
         self.assertEqual(result[1], 'testapp')
@@ -81,10 +67,7 @@ class IncludeDecoratedTestCase(TestCase):
             func.tested = True
             return func
 
-        result = decorator_include(
-            test_decorator,
-            ('decorator_include.tests.urls', 'testapp', 'testns')
-        )
+        result = decorator_include(test_decorator, ('tests.urls', 'testapp', 'testns'))
         self.assertEqual(len(result), 3)
         self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
         self.assertEqual(result[1], 'testapp')
@@ -97,10 +80,7 @@ class IncludeDecoratedTestCase(TestCase):
             func.decorator_flag = 'test'
             return func
 
-        result = decorator_include(
-            test_decorator,
-            'decorator_include.tests.urls'
-        )
+        result = decorator_include(test_decorator, 'tests.urls')
         self.assertEqual(len(result), 3)
         self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
         patterns = result[0].urlpatterns
@@ -123,10 +103,7 @@ class IncludeDecoratedTestCase(TestCase):
             func.decorated_by = 'second'
             return func
 
-        result = decorator_include(
-            (first_decorator, second_decorator),
-            'decorator_include.tests.urls'
-        )
+        result = decorator_include((first_decorator, second_decorator), 'tests.urls')
         self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
         patterns = result[0].urlpatterns
         pattern = patterns[0]
@@ -140,10 +117,7 @@ class IncludeDecoratedTestCase(TestCase):
             func.decorator_flag = 'test'
             return func
 
-        result = decorator_include(
-            test_decorator,
-            'decorator_include.tests.urls'
-        )
+        result = decorator_include(test_decorator, 'tests.urls')
         patterns = result[0].urlpatterns
         decorated = patterns[1]
         self.assertEqual(decorated.url_patterns[1].callback.decorator_flag, 'test')

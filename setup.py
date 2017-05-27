@@ -19,10 +19,7 @@ setup(
     author='Jeff Kistler',
     author_email='jeff@jeffkistler.com',
     url='https://github.com/twidi/django-decorator-include/',
-    packages=[
-        'decorator_include',
-    ],
-    package_dir={'': 'src'},
+    py_modules=['decorator_include'],
     install_requires=['Django>=1.8'],
     classifiers=[
         'Development Status :: 5 - Production/Stable',

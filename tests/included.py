@@ -9,6 +9,6 @@ def testify(request):
 
 
 urlpatterns = [
-    url(r'^included/', include('decorator_include.tests.included2')),
+    url(r'^included/', include('tests.included2')),
     url(r'^test/$', testify, name='testify'),
 ]
