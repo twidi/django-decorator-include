@@ -9,7 +9,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'decorator_include',
+    'tests',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -22,7 +22,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'decorator_include.tests.urls'
+ROOT_URLCONF = 'tests.urls'
 
 DATABASES = {
     'default': {

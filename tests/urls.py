@@ -18,6 +18,6 @@ def index(request):
 
 urlpatterns = [
     url(r'^$', index, name='index'),
-    url(r'^include/', decorator_include(login_required, 'decorator_include.tests.included')),
+    url(r'^include/', decorator_include(login_required, 'tests.included')),
     url(r'^admin/', decorator_include(identity, admin.site.urls)),
 ]

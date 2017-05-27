@@ -57,33 +57,21 @@ is an example URL conf::
 Running tests
 -------------
 
-If `decorator_include` is in the `INSTALLED_APPS` of your project, and it was
-installed with the test (ie not from PyPI) simply run::
-
-    django-admin test decorator_include
-
-You may want to use ``django-admin`` or ``./manage.py`` depending on your
-installation.
-
 If you are in a fresh virtualenv to work on ``decorator_include``, install the
-django version you want::
+Django version you want::
 
     pip install django
 
 Then make the ``decorator_include`` module available in your python path. For
-example, with ``virtualenv-wrapper``, considering you are at the root of the
+example, with ``pip``, considering you are at the root of the
 ``django-decorator-include`` repository, simply do::
-
-    add2virtualenv src
-
-Or simply::
 
     pip install -e .
 
 Then to run the tests, this library provides a test project, so you can launch
 them this way::
 
-    DJANGO_SETTINGS_MODULE=decorator_include.tests.testproject.settings django-admin.py test decorator_include
+    django-admin test --settings=tests.settings tests
 
 Or simply launch the ``runtests.sh`` script (it will run this exact command)::
 
