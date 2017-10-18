@@ -12,7 +12,6 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import RegexURLPattern, RegexURLResolver
 from django.utils import six
 
-
 VERSION = (1, 3)
 
 
