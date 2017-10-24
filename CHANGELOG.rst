@@ -1,6 +1,10 @@
 Changelog
 =========
 
+UNRELEASED
+----------
+* Remove support for Python 3.2.
+
 Release *v1.3* - ``2017-05-16``
 -----------------------------
 * Removed support for Django < 1.8 and Python 2.6.
