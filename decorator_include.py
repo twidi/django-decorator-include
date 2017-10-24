@@ -9,7 +9,7 @@ from __future__ import unicode_literals
 from importlib import import_module
 
 from django.core.exceptions import ImproperlyConfigured
-from django.core.urlresolvers import RegexURLPattern, RegexURLResolver
+from django.urls import RegexURLPattern, RegexURLResolver
 from django.utils import six
 
 VERSION = (1, 3)
