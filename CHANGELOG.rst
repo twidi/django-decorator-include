@@ -4,6 +4,7 @@ Changelog
 UNRELEASED
 ----------
 * Remove support for Python 3.2.
+* Add support for Django 2.0.
 
 Release *v1.3* - ``2017-05-16``
 -----------------------------
