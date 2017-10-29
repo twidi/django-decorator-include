@@ -9,9 +9,16 @@ from __future__ import unicode_literals
 from importlib import import_module
 
 from django.core.exceptions import ImproperlyConfigured
-from django.core.urlresolvers import RegexURLPattern, RegexURLResolver
 from django.utils import six
 from django.utils.functional import cached_property
+
+try:
+    from django.urls import URLPattern, URLResolver
+    django_2_0_patterns = True
+except ImportError:
+    # Django < 2.0
+    from django.core.urlresolvers import RegexURLPattern as URLPattern, RegexURLResolver as URLResolver
+    django_2_0_patterns = False
 
 VERSION = (1, 3)
 
@@ -32,9 +39,9 @@ class DecoratedPatterns(object):
         self.decorators = decorators
 
     def decorate_pattern(self, pattern):
-        if isinstance(pattern, RegexURLResolver):
-            decorated = RegexURLResolver(
-                pattern.regex.pattern,
+        if isinstance(pattern, URLResolver):
+            decorated = URLResolver(
+                pattern.pattern if django_2_0_patterns else pattern.regex.pattern,
                 DecoratedPatterns(pattern.urlconf_name, self.decorators),
                 pattern.default_kwargs,
                 pattern.app_name,
@@ -44,8 +51,8 @@ class DecoratedPatterns(object):
             callback = pattern.callback
             for decorator in reversed(self.decorators):
                 callback = decorator(callback)
-            decorated = RegexURLPattern(
-                pattern.regex.pattern,
+            decorated = URLPattern(
+                pattern.pattern if django_2_0_patterns else pattern.regex.pattern,
                 callback,
                 pattern.default_args,
                 pattern.name,
