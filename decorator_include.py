@@ -33,15 +33,12 @@ class DecoratedPatterns(object):
 
     def decorate_pattern(self, pattern):
         if isinstance(pattern, RegexURLResolver):
-            regex = pattern.regex.pattern
-            urlconf_module = pattern.urlconf_name
-            default_kwargs = pattern.default_kwargs
-            namespace = pattern.namespace
-            app_name = pattern.app_name
-            urlconf = DecoratedPatterns(urlconf_module, self.decorators)
             decorated = RegexURLResolver(
-                regex, urlconf, default_kwargs,
-                app_name, namespace
+                pattern.regex.pattern,
+                DecoratedPatterns(pattern.urlconf_name, self.decorators),
+                pattern.default_kwargs,
+                pattern.app_name,
+                pattern.namespace,
             )
         else:
             callback = pattern.callback
@@ -51,7 +48,7 @@ class DecoratedPatterns(object):
                 pattern.regex.pattern,
                 callback,
                 pattern.default_args,
-                pattern.name
+                pattern.name,
             )
         return decorated
 
