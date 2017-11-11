@@ -11,6 +11,7 @@ from importlib import import_module
 from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import RegexURLPattern, RegexURLResolver
 from django.utils import six
+from django.utils.functional import cached_property
 
 VERSION = (1, 3)
 
@@ -20,16 +21,15 @@ class DecoratedPatterns(object):
     A wrapper for an urlconf that applies a decorator to all its views.
     """
     def __init__(self, urlconf_name, decorators):
+        # urlconf_name is the dotted Python path to the module defining
+        # urlpatterns. It may also be an object with an urlpatterns attribute
+        # or urlpatterns itself.
         self.urlconf_name = urlconf_name
         try:
             iter(decorators)
         except TypeError:
             decorators = [decorators]
         self.decorators = decorators
-        if not isinstance(urlconf_name, six.string_types):
-            self._urlconf_module = self.urlconf_name
-        else:
-            self._urlconf_module = None
 
     def decorate_pattern(self, pattern):
         if isinstance(pattern, RegexURLResolver):
@@ -55,22 +55,18 @@ class DecoratedPatterns(object):
             )
         return decorated
 
-    def _get_urlpatterns(self):
-        try:
-            patterns = self.urlconf_module.urlpatterns
-        except AttributeError:
-            patterns = self.urlconf_module
+    @cached_property
+    def urlpatterns(self):
+        # urlconf_module might be a valid set of patterns, so we default to it.
+        patterns = getattr(self.urlconf_module, 'urlpatterns', self.urlconf_module)
         return [self.decorate_pattern(pattern) for pattern in patterns]
-    urlpatterns = property(_get_urlpatterns)
 
-    def _get_urlconf_module(self):
-        if self._urlconf_module is None:
-            self._urlconf_module = import_module(self.urlconf_name)
-        return self._urlconf_module
-    urlconf_module = property(_get_urlconf_module)
-
-    def __getattr__(self, name):
-        return getattr(self.urlconf_module, name)
+    @cached_property
+    def urlconf_module(self):
+        if isinstance(self.urlconf_name, six.text_type):
+            return import_module(self.urlconf_name)
+        else:
+            return self.urlconf_name
 
 
 def decorator_include(decorators, arg, namespace=None, app_name=None):
