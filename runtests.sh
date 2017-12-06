@@ -1,3 +1,3 @@
 #!/bin/sh
 
-django-admin test --settings=tests.settings tests
+python -m django test --settings=tests.settings tests
