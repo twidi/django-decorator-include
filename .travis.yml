@@ -5,26 +5,22 @@ cache: pip
 matrix:
   include:
     - python: 2.7
-      env: DJANGO="Django>=1.11,<2.0"
+      env: TOXENV=py27-django111
     - python: 3.4
-      env: DJANGO="Django>=1.11,<2.0"
+      env: TOXENV=py34-django111
     - python: 3.5
-      env: DJANGO="Django>=1.11,<2.0"
+      env: TOXENV=py35-django111
     - python: 3.6
-      env: DJANGO="Django>=1.11,<2.0"
+      env: TOXENV=py36-django111
     - python: 3.4
-      env: DJANGO="Django>=2.0,<2.1"
+      env: TOXENV=py34-django20
     - python: 3.5
-      env: DJANGO="Django>=2.0,<2.1"
+      env: TOXENV=py35-django20
     - python: 3.6
-      env: DJANGO="Django>=2.0,<2.1"
+      env: TOXENV=py36-django20
+    - env: TOXENV=lint
 
 install:
-  - pip install $DJANGO
-  - pip install -r requirements.txt
+  - pip install tox
 
-before_script:
-  - flake8
-  - isort --check-only --diff
-
-script: ./runtests.sh
+script: tox
