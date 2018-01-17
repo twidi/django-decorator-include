@@ -3,6 +3,7 @@
 *.sw[po]
 *~
 .DS_Store
+.tox/
 __pycache__/
 build/
 dist/
