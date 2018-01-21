@@ -6,5 +6,5 @@ Contributors
 ------------
 
 * Jeff Kistler
-* Stéphane Angel <http://www.twidi.com/>
+* Stéphane Angel <https://www.twidi.com/>
 * Jon Dufresne <jon.dufresne@gmail.com>
