@@ -32,14 +32,16 @@ Usage
 iterable of decorators to apply, in reverse order, to all included views. Here
 is an example URL conf::
 
-    from django.conf.urls import url
+    from django.urls import path
     from django.contrib.auth.decorators import login_required
 
     from decorator_include import decorator_include
 
+    from mysite.views import index
+
     urlpatterns = [
-        url(r'^$', 'mysite.views.index', name='index'),
-        url(r'^secret/', decorator_include(login_required, 'mysite.secret.urls')),
+        path('', views.index, name='index'),
+        path('secret/', decorator_include(login_required, 'mysite.secret.urls')),
     ]
 
 
