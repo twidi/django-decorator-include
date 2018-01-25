@@ -3,37 +3,20 @@ django-decorator-include
 
 Include Django URL patterns with decorators.
 
-Maintained by Twidi, on https://github.com/twidi/django-decorator-include based
-on the original work from Jeff Kistler on
+Maintained by Stéphane "Twidi" Angel, and Jon Dufresne on
+https://github.com/twidi/django-decorator-include
+based on the original work from Jeff Kistler on
 https://github.com/jeffkistler/django-decorator-include.
 
 
 Installation
 ------------
 
-Installation from Source
-````````````````````````
-
-Unpack the archive, ``cd`` to the source directory, and run the following
-command::
-
-    python setup.py install
-
-Installation with pip
-`````````````````````
-
 Assuming you have pip installed, run the following command to install from
 PyPI::
 
     pip install django-decorator-include
 
-Installation with pip and git
-`````````````````````````````
-
-Assuming you have pip and git installed, run the following command to install
-from the GitHub repository::
-
-    pip install git+git://github.com/twidi/django-decorator-include.git#egg=django-decorator-include
 
 Usage
 -----
@@ -54,21 +37,50 @@ is an example URL conf::
         url(r'^secret/', decorator_include(login_required, 'mysite.secret.urls')),
     ]
 
-Running tests
--------------
 
-If you are in a fresh virtualenv to work on ``decorator_include``, install the
-Django version you want::
+Supported versions
+------------------
 
-    pip install django
+=============== ==================
+Django versions Python versions
+=============== ==================
+1.11            2.7, 3.4, 3.5, 3.6
+2.0             3.4, 3.5, 3.6
+=============== ==================
 
-Then make the ``decorator_include`` module available in your python path. For
-example, with ``pip``, considering you are at the root of the
-``django-decorator-include`` repository, simply do::
+All library versions to use for old Django/Python support
+---------------------------------------------------------
 
-    pip install -e .
+=============== ======================= ================
+Django versions Python versions         Library versions
+=============== ======================= ================
+1.4, 1.5        2.6, 2.7                1.2
+1.6             2.6, 2.7, 3.2, 3.3      1.2
+1.7             2.7, 3.2, 3.3, 3.4      1.2
+1.8             2.7, 3.2, 3.3, 3.4, 3.5 1.3
+1.9, 1.10       2.7, 3.4, 3.5           1.3
+1.11            2.7, 3.4, 3.5, 3.6      1.4
+2.0             3.4, 3.5, 3.6           1.4
+=============== ======================= ================
 
-Then to run the tests, this library provides a test project, so you can launch
+
+Development
+-----------
+
+Make sure you are in a virtualenv on a valid python version.
+
+Grab the sources from Github::
+
+    git clone -b develop https://github.com/twidi/django-decorator-include.git
+
+
+Then go into the newly created ``django-decorator-include`` directory and install
+the few needed libraries::
+
+    pip install -r requirements.txt
+
+
+To run the tests, this library provides a test project, so you can launch
 them this way::
 
     django-admin test --settings=tests.settings tests
@@ -77,12 +89,9 @@ Or simply launch the ``runtests.sh`` script (it will run this exact command)::
 
     ./runtests.sh
 
-Supported versions
-------------------
+Base your work on the ``develop`` branch. Iit should be the default branch on
+git assuming you used the ``-b develop`` argument on the ``git clone``
+command as shown above.
 
-============== ==================
-Django version Python versions
-============== ==================
-1.11           2.7, 3.4, 3.5, 3.6
-2.0            3.4, 3.5, 3.6
-============== ==================
+When creating the pull request, ensure you are using the correct base
+(twidi/django-decorator-include on develop).
