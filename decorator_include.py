@@ -20,7 +20,7 @@ except ImportError:
     from django.core.urlresolvers import RegexURLPattern as URLPattern, RegexURLResolver as URLResolver
     django_2_0_patterns = False
 
-VERSION = (1, 3)
+VERSION = (1, 4)
 
 
 class DecoratedPatterns(object):
