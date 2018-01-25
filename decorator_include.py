@@ -5,12 +5,31 @@ reverse order, to all views in the included urlconf.
 """
 
 from importlib import import_module
+from os import path
+
+import pkg_resources
+from setuptools.config import read_configuration
 
 from django.core.exceptions import ImproperlyConfigured
 from django.urls import URLPattern, URLResolver
 from django.utils.functional import cached_property
 
-VERSION = (1, 4)
+
+def _extract_version(package_name):
+    try:
+        # if package is installed
+        version = pkg_resources.get_distribution(package_name).version
+    except pkg_resources.DistributionNotFound:
+        # if not installed, so we must be in source, with ``setup.cfg`` available
+        _conf = read_configuration(path.join(
+            path.dirname(__file__), 'setup.cfg')
+        )
+        version = _conf['metadata']['version']
+
+    return tuple(int(part) for part in version.split('.') if part.isnumeric())
+
+
+VERSION = _extract_version('django_decorator_include')
 
 
 class DecoratedPatterns(object):
