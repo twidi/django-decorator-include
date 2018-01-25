@@ -8,6 +8,11 @@ https://github.com/twidi/django-decorator-include
 based on the original work from Jeff Kistler on
 https://github.com/jeffkistler/django-decorator-include.
 
+.. image:: https://badge.fury.io/py/django-decorator-include.svg
+    :target: https://badge.fury.io/py/django-decorator-include
+
+.. image:: https://travis-ci.org/twidi/django-decorator-include.svg?branch=develop
+    :target: https://travis-ci.org/twidi/django-decorator-include
 
 Installation
 ------------
