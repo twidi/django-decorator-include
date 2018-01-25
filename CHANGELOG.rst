@@ -1,9 +1,13 @@
 Changelog
 =========
 
-UNRELEASED
-----------
-* Remove support for Python 3.2.
+Release *v1.4* - ``2018-01-25``
+-------------------------------
+* Removed support for Python 3.2 and 3.3.
+* Removed support for Django < 1.11.
+* Added support for Django 2.0.
+* Added ``tox`` for tests matrix
+* Configured setup using ``setup.cfg``
 
 Release *v1.3* - ``2017-05-16``
 -----------------------------

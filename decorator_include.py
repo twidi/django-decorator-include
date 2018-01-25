@@ -9,10 +9,18 @@ from __future__ import unicode_literals
 from importlib import import_module
 
 from django.core.exceptions import ImproperlyConfigured
-from django.core.urlresolvers import RegexURLPattern, RegexURLResolver
 from django.utils import six
+from django.utils.functional import cached_property
 
-VERSION = (1, 3)
+try:
+    from django.urls import URLPattern, URLResolver
+    django_2_0_patterns = True
+except ImportError:
+    # Django < 2.0
+    from django.core.urlresolvers import RegexURLPattern as URLPattern, RegexURLResolver as URLResolver
+    django_2_0_patterns = False
+
+VERSION = (1, 4)
 
 
 class DecoratedPatterns(object):
@@ -20,57 +28,49 @@ class DecoratedPatterns(object):
     A wrapper for an urlconf that applies a decorator to all its views.
     """
     def __init__(self, urlconf_name, decorators):
+        # urlconf_name is the dotted Python path to the module defining
+        # urlpatterns. It may also be an object with an urlpatterns attribute
+        # or urlpatterns itself.
         self.urlconf_name = urlconf_name
         try:
             iter(decorators)
         except TypeError:
             decorators = [decorators]
         self.decorators = decorators
-        if not isinstance(urlconf_name, six.string_types):
-            self._urlconf_module = self.urlconf_name
-        else:
-            self._urlconf_module = None
 
     def decorate_pattern(self, pattern):
-        if isinstance(pattern, RegexURLResolver):
-            regex = pattern.regex.pattern
-            urlconf_module = pattern.urlconf_name
-            default_kwargs = pattern.default_kwargs
-            namespace = pattern.namespace
-            app_name = pattern.app_name
-            urlconf = DecoratedPatterns(urlconf_module, self.decorators)
-            decorated = RegexURLResolver(
-                regex, urlconf, default_kwargs,
-                app_name, namespace
+        if isinstance(pattern, URLResolver):
+            decorated = URLResolver(
+                pattern.pattern if django_2_0_patterns else pattern.regex.pattern,
+                DecoratedPatterns(pattern.urlconf_name, self.decorators),
+                pattern.default_kwargs,
+                pattern.app_name,
+                pattern.namespace,
             )
         else:
             callback = pattern.callback
             for decorator in reversed(self.decorators):
                 callback = decorator(callback)
-            decorated = RegexURLPattern(
-                pattern.regex.pattern,
+            decorated = URLPattern(
+                pattern.pattern if django_2_0_patterns else pattern.regex.pattern,
                 callback,
                 pattern.default_args,
-                pattern.name
+                pattern.name,
             )
         return decorated
 
-    def _get_urlpatterns(self):
-        try:
-            patterns = self.urlconf_module.urlpatterns
-        except AttributeError:
-            patterns = self.urlconf_module
+    @cached_property
+    def urlpatterns(self):
+        # urlconf_module might be a valid set of patterns, so we default to it.
+        patterns = getattr(self.urlconf_module, 'urlpatterns', self.urlconf_module)
         return [self.decorate_pattern(pattern) for pattern in patterns]
-    urlpatterns = property(_get_urlpatterns)
 
-    def _get_urlconf_module(self):
-        if self._urlconf_module is None:
-            self._urlconf_module = import_module(self.urlconf_name)
-        return self._urlconf_module
-    urlconf_module = property(_get_urlconf_module)
-
-    def __getattr__(self, name):
-        return getattr(self.urlconf_module, name)
+    @cached_property
+    def urlconf_module(self):
+        if isinstance(self.urlconf_name, six.text_type):
+            return import_module(self.urlconf_name)
+        else:
+            return self.urlconf_name
 
 
 def decorator_include(decorators, arg, namespace=None, app_name=None):
