@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 SECRET_KEY = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
 
 INSTALLED_APPS = [
