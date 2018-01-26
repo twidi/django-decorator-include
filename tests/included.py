@@ -1,7 +1,5 @@
-from __future__ import unicode_literals
-
-from django.conf.urls import include, url
 from django.http import HttpResponse
+from django.urls import include, path
 
 
 def testify(request):
@@ -9,6 +7,6 @@ def testify(request):
 
 
 urlpatterns = [
-    url(r'^included/', include('tests.included2')),
-    url(r'^test/$', testify, name='testify'),
+    path('included/', include('tests.included2')),
+    path('test/', testify, name='testify'),
 ]
