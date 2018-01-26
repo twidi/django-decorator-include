@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Release *v2.0* - ``2018-01-26``
+-------------------------------
+* Removed support for Python 2
+* Removed support for Django < 2
+
 Release *v1.4* - ``2018-01-25``
 -------------------------------
 * Removed support for Python 3.2 and 3.3.
