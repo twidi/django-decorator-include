@@ -10,6 +10,10 @@ matrix:
       env: TOXENV=py35-django20
     - python: 3.6
       env: TOXENV=py36-django20
+    - python: 3.5
+      env: TOXENV=py35-djangomaster
+    - python: 3.6
+      env: TOXENV=py36-djangomaster
     - env: TOXENV=lint
 
 install:
