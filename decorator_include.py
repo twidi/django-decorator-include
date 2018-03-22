@@ -67,7 +67,7 @@ class DecoratedPatterns(object):
 
     @cached_property
     def urlconf_module(self):
-        if isinstance(self.urlconf_name, six.text_type):
+        if isinstance(self.urlconf_name, six.string_types):
             return import_module(self.urlconf_name)
         else:
             return self.urlconf_name
