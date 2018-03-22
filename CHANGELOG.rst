@@ -1,6 +1,10 @@
 Changelog
 =========
 
+Release *v1.4.1* - ``2018-03-22``
+---------------------------------
+* Use correct string-types from six for Python 2 (thanks @fixmycode)
+
 Release *v1.4* - ``2018-01-25``
 -------------------------------
 * Removed support for Python 3.2 and 3.3.
