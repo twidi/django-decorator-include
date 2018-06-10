@@ -1,6 +1,10 @@
 Changelog
 =========
 
+UNRELEASED
+----------
+* Added testing and support for Django 2.1. No code changes were required.
+
 Release *v2.0* - ``2018-01-26``
 -------------------------------
 * Removed support for Python 2
