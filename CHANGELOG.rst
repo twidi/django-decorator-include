@@ -5,6 +5,8 @@ UNRELEASED
 ----------
 * Added testing and support for Django 2.1 and Python 3.7. No code changes were
   required.
+* Fixed ImportError when installed on environments with an old version of
+  setuptools.
 
 Release *v2.0* - ``2018-01-26``
 -------------------------------
