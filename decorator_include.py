@@ -8,7 +8,6 @@ from importlib import import_module
 from os import path
 
 import pkg_resources
-from setuptools.config import read_configuration
 
 from django.core.exceptions import ImproperlyConfigured
 from django.urls import URLPattern, URLResolver
@@ -21,6 +20,7 @@ def _extract_version(package_name):
         version = pkg_resources.get_distribution(package_name).version
     except pkg_resources.DistributionNotFound:
         # if not installed, so we must be in source, with ``setup.cfg`` available
+        from setuptools.config import read_configuration
         _conf = read_configuration(path.join(
             path.dirname(__file__), 'setup.cfg')
         )

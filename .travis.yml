@@ -3,6 +3,7 @@ language: python
 cache: pip
 
 matrix:
+  fast_finish: true
   include:
     - python: 3.4
       env: TOXENV=py34-django20
@@ -10,7 +11,31 @@ matrix:
       env: TOXENV=py35-django20
     - python: 3.6
       env: TOXENV=py36-django20
+    - python: 3.7
+      env: TOXENV=py37-django20
+      dist: xenial
+      sudo: true
+    - python: 3.5
+      env: TOXENV=py35-django21
+    - python: 3.6
+      env: TOXENV=py36-django21
+    - python: 3.7
+      env: TOXENV=py37-django21
+      dist: xenial
+      sudo: true
+    - python: 3.5
+      env: TOXENV=py35-djangomaster
+    - python: 3.6
+      env: TOXENV=py36-djangomaster
+    - python: 3.7
+      env: TOXENV=py37-djangomaster
+      dist: xenial
+      sudo: true
     - env: TOXENV=lint
+  allow_failures:
+    - env: TOXENV=py35-djangomaster
+    - env: TOXENV=py36-djangomaster
+    - env: TOXENV=py37-djangomaster
 
 install:
   - pip install tox
