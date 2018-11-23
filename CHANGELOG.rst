@@ -1,10 +1,9 @@
 Changelog
 =========
 
-UNRELEASED
-----------
-* Added testing and support for Django 2.1 and Python 3.7. No code changes were
-  required.
+Release *v2.1* - ``2018-11-23``
+-------------------------------
+* Added support for Django 2.1 and Python 3.7.
 * Fixed ImportError when installed on environments with an old version of
   setuptools.
 
