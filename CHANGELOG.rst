@@ -1,6 +1,10 @@
 Changelog
 =========
 
+UNRELEASED
+----------
+* Added support for Django 2.2.
+
 Release *v2.1* - ``2018-11-23``
 -------------------------------
 * Added support for Django 2.1 and Python 3.7.
