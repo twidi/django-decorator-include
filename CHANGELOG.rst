@@ -4,7 +4,8 @@ Changelog
 UNRELEASED *v3.0*
 -----------------
 * Handle namespace/app_name the same way as Django `include` function
-* Added support for Django 2.2.
+* Added support for Django 2.2 and 3.0
+* Added support for Python 3.8
 
 Release *v2.1* - ``2018-11-23``
 -------------------------------
