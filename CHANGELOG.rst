@@ -4,6 +4,7 @@ Changelog
 UNRELEASED *v3.0*
 -----------------
 * Handle namespace/app_name the same way as Django `include` function
+* Ensure parameterized decorators are accepted
 * Added support for Django 2.2 and 3.0
 * Added support for Python 3.8
 

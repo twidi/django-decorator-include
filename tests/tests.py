@@ -1,5 +1,6 @@
 from django.contrib import admin
-from django.contrib.auth.models import User
+from django.contrib.auth.models import Permission, User
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponse
 from django.test import TestCase
@@ -121,7 +122,8 @@ class IncludeDecoratedTestCase(TestCase):
         #   /include/
         #   /admin/
         #   /only-god/
-        self.assertEqual(len(patterns), 4)
+        #   /with-perm/
+        self.assertEqual(len(patterns), 5)
         self.assertEqual(patterns[0].callback.decorator_flag, 'test')
 
     def test_multiple_decorators(self):
@@ -192,4 +194,32 @@ class IncludeDecoratedTestCase(TestCase):
         notgod.save()
         self.client.login(username='notgod', password='foo')
         response = self.client.get('/only-god/test/')
+        self.assertEqual(response.status_code, 403)
+
+    def test_django_permission_required(self):
+        permission = Permission.objects.create(
+            codename='is_god',
+            name='Can do god things',
+            content_type=ContentType.objects.get_for_model(User),
+        )
+
+        # not authenticated will redirect to login page
+        response = self.client.get('/with-perm/test/')
+        self.assertEqual(response.status_code, 302)
+
+        # authenticated with permission
+        allowed_user = User(username='allowed')
+        allowed_user.set_password('foo')
+        allowed_user.save()
+        allowed_user.user_permissions.add(permission)
+        self.client.login(username='allowed', password='foo')
+        response = self.client.get('/with-perm/test/')
+        self.assertEqual(response.status_code, 200)
+
+        # authenticated without permission will raise
+        not_allowed = User(username='not_allowed')
+        not_allowed.set_password('foo')
+        not_allowed.save()
+        self.client.login(username='not_allowed', password='foo')
+        response = self.client.get('/with-perm/test/')
         self.assertEqual(response.status_code, 403)

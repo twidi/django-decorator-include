@@ -42,12 +42,12 @@ Herei s an example URL conf::
 
     from mysite.views import index
 
-    def only_god(func):
+    def only_user(username):
         def check(user):
-            if user.is_authenticated and user.username == 'god':
+            if user.is_authenticated and user.username == username:
                 return True
             raise PermissionDenied
-        return user_passes_test(check)(func)
+        return user_passes_test(check)
 
     urlpatterns = [
         path('', views.index, name='index'),
@@ -55,7 +55,7 @@ Herei s an example URL conf::
         path('secret/', decorator_include(login_required, 'mysite.secret.urls')),
         # will redirect to login page if not authenticated
         # will return a 403 http error if the user does not have the "god" username
-        path('admin/', decorator_include([login_required, only_god], admin.site.urls),
+        path('admin/', decorator_include([login_required, only_user('god')], admin.site.urls),
     ]
 
 
