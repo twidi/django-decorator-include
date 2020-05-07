@@ -1,4 +1,14 @@
+from django.contrib import admin
+from django.contrib.auth.models import User
+from django.core.exceptions import ImproperlyConfigured
+from django.http import HttpResponse
 from django.test import TestCase
+from django.urls import path
+
+
+def test_decorator(func):
+    func.tested = True
+    return func
 
 
 class IncludeDecoratedTestCase(TestCase):
@@ -9,67 +19,92 @@ class IncludeDecoratedTestCase(TestCase):
     def test_basic(self):
         decorator_include = self.get_decorator_include()
 
-        def test_decorator(func):
-            func.tested = True
-            return func
-
-        result = decorator_include(test_decorator, 'tests.urls')
-        self.assertEqual(len(result), 3)
-        self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
-        self.assertIsNone(result[1])
-        self.assertIsNone(result[2])
+        urlconf, app_name, namespace = decorator_include(test_decorator, 'tests.urls')
+        self.assertEqual(urlconf.__class__.__name__, 'DecoratedPatterns')
+        # use app_name defined in tests.urls
+        self.assertEqual(app_name, 'app_name_tests')
+        # if not defined, the namespace is the app_name
+        self.assertEqual(namespace, 'app_name_tests')
 
     def test_basic_namespace(self):
         decorator_include = self.get_decorator_include()
 
-        def test_decorator(func):
-            func.tested = True
-            return func
-
-        result = decorator_include(test_decorator, 'tests.urls', 'test')
-        self.assertEqual(len(result), 3)
-        self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
-        self.assertIsNone(result[1])
-        self.assertEqual(result[2], 'test')
+        urlconf, app_name, namespace = decorator_include(test_decorator, 'tests.urls', 'test')
+        self.assertEqual(urlconf.__class__.__name__, 'DecoratedPatterns')
+        # use app_name defined in tests.urls
+        self.assertEqual(app_name, 'app_name_tests')
+        # use passed namespace
+        self.assertEqual(namespace, 'test')
 
     def test_basic_2_tuple(self):
         decorator_include = self.get_decorator_include()
 
-        def test_decorator(func):
-            func.tested = True
-            return func
+        urlconf, app_name, namespace = decorator_include(test_decorator, ('tests.urls', 'testapp'))
+        self.assertEqual(urlconf.__class__.__name__, 'DecoratedPatterns')
+        # use app_name defined in tests.urls even if passed in the tuple
+        self.assertEqual(app_name, 'app_name_tests')
+        # if not defined, the namespace is the app_name
+        self.assertEqual(namespace, 'app_name_tests')
 
-        result = decorator_include(test_decorator, ('tests.urls', 'test'))
-        self.assertEqual(len(result), 3)
-        self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
-        self.assertEqual(result[1], 'test')
-        self.assertEqual(result[2], 'test')
+        # temporarily remove app_name from `tests.urls` to ensure it will use the provided one
+        from tests import urls
+        old_app_name = urls.app_name
+        try:
+            del urls.app_name
+            urlconf, app_name, namespace = decorator_include(test_decorator, ('tests.urls', 'testapp'))
+            self.assertEqual(urlconf.__class__.__name__, 'DecoratedPatterns')
+            # no app_name in tests.urls, we use the one passed in the tuple
+            self.assertEqual(app_name, 'testapp')
+            # if not defined, the namespace is the app_name
+            self.assertEqual(namespace, 'testapp')
+        finally:
+            urls.app_name = old_app_name
 
     def test_basic_2_tuple_namespace(self):
         decorator_include = self.get_decorator_include()
 
-        def test_decorator(func):
-            func.tested = True
-            return func
+        urlconf, app_name, namespace = decorator_include(test_decorator, ('tests.urls', 'testapp'), 'testns')
+        self.assertEqual(urlconf.__class__.__name__, 'DecoratedPatterns')
+        # use app_name defined in tests.urls even if passed in the tuple
+        self.assertEqual(app_name, 'app_name_tests')
+        # use passed namespace
+        self.assertEqual(namespace, 'testns')
 
-        result = decorator_include(test_decorator, ('tests.urls', 'testapp'), 'testns')
-        self.assertEqual(len(result), 3)
-        self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
-        self.assertEqual(result[1], 'testapp')
-        self.assertEqual(result[2], 'testns')
+        # temporarily remove app_name from `tests.urls` to ensure it will use the provided one
+        from tests import urls
+        old_app_name = urls.app_name
+        try:
+            del urls.app_name
+            urlconf, app_name, namespace = decorator_include(test_decorator, ('tests.urls', 'testapp'), 'testns')
+            self.assertEqual(urlconf.__class__.__name__, 'DecoratedPatterns')
+            # no app_name in tests.urls, we use the one passed in the tuple
+            self.assertEqual(app_name, 'testapp')
+            # use passed namespace
+            self.assertEqual(namespace, 'testns')
+        finally:
+            urls.app_name = old_app_name
 
     def test_basic_3_tuple(self):
         decorator_include = self.get_decorator_include()
 
-        def test_decorator(func):
-            func.tested = True
-            return func
+        # passing a 3 tuple with a python path for the urls module is not allowed
+        with self.assertRaises(ImproperlyConfigured):
+            decorator_include(test_decorator, ('tests.urls', 'testapp', 'testns'))
 
-        result = decorator_include(test_decorator, ('tests.urls', 'testapp', 'testns'))
-        self.assertEqual(len(result), 3)
-        self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
-        self.assertEqual(result[1], 'testapp')
-        self.assertEqual(result[2], 'testns')
+        # but it is allowed when the first item can return directly urls, like the admin urls
+        urlconf, app_name, namespace = decorator_include(test_decorator, admin.site.urls)
+        self.assertEqual(urlconf.__class__.__name__, 'DecoratedPatterns')
+        self.assertEqual(app_name, 'admin')
+        self.assertEqual(namespace, 'admin')
+
+        # or directly a list
+        urlpatterns = [
+            path('myview/', lambda request: HttpResponse('view'), name='myview'),
+        ]
+        urlconf, app_name, namespace = decorator_include(test_decorator, (urlpatterns, 'myviewsapp', 'myviewsns'))
+        self.assertEqual(urlconf.__class__.__name__, 'DecoratedPatterns')
+        self.assertEqual(app_name, 'myviewsapp')
+        self.assertEqual(namespace, 'myviewsns')
 
     def test_get_urlpatterns(self):
         decorator_include = self.get_decorator_include()
@@ -78,15 +113,15 @@ class IncludeDecoratedTestCase(TestCase):
             func.decorator_flag = 'test'
             return func
 
-        result = decorator_include(test_decorator, 'tests.urls')
-        self.assertEqual(len(result), 3)
-        self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
-        patterns = result[0].urlpatterns
+        urlconf, app_name, namespace = decorator_include(test_decorator, 'tests.urls')
+        self.assertEqual(urlconf.__class__.__name__, 'DecoratedPatterns')
+        patterns = urlconf.urlpatterns
         # 3 URL patterns
         #   /
         #   /include/
         #   /admin/
-        self.assertEqual(len(patterns), 3)
+        #   /only-god/
+        self.assertEqual(len(patterns), 4)
         self.assertEqual(patterns[0].callback.decorator_flag, 'test')
 
     def test_multiple_decorators(self):
@@ -101,9 +136,9 @@ class IncludeDecoratedTestCase(TestCase):
             func.decorated_by = 'second'
             return func
 
-        result = decorator_include((first_decorator, second_decorator), 'tests.urls')
-        self.assertEqual(result[0].__class__.__name__, 'DecoratedPatterns')
-        patterns = result[0].urlpatterns
+        urlconf, app_name, namespace = decorator_include((first_decorator, second_decorator), 'tests.urls')
+        self.assertEqual(urlconf.__class__.__name__, 'DecoratedPatterns')
+        patterns = urlconf.urlpatterns
         pattern = patterns[0]
         self.assertEqual(pattern.callback.decorator_flag, 'first')
         self.assertEqual(pattern.callback.decorated_by, 'second')
@@ -115,8 +150,8 @@ class IncludeDecoratedTestCase(TestCase):
             func.decorator_flag = 'test'
             return func
 
-        result = decorator_include(test_decorator, 'tests.urls')
-        patterns = result[0].urlpatterns
+        urlconf, app_name, namespace = decorator_include(test_decorator, 'tests.urls')
+        patterns = urlconf.urlpatterns
         decorated = patterns[1]
         self.assertEqual(decorated.url_patterns[1].callback.decorator_flag, 'test')
         decorated = patterns[1].url_patterns[0].url_patterns[0]
@@ -133,3 +168,28 @@ class IncludeDecoratedTestCase(TestCase):
     def test_get_deeply_nested(self):
         response = self.client.get('/include/included/deeply_nested/')
         self.assertEqual(response.status_code, 302)
+
+    def test_multiple_decorators_real_case(self):
+        # the `/only-god/` path is decorated with two decorators:
+        # - `login_required` that will redirect to login page if not authenticated
+        # - `only_god` that will raise a 403 if it's not the "god" user
+
+        # not authenticated will redirect to login page
+        response = self.client.get('/only-god/test/')
+        self.assertEqual(response.status_code, 302)
+
+        # authenticated as god is ok
+        god = User(username='god')
+        god.set_password('foo')
+        god.save()
+        self.client.login(username='god', password='foo')
+        response = self.client.get('/only-god/test/')
+        self.assertEqual(response.status_code, 200)
+
+        # authenticated as another user will raise
+        notgod = User(username='notgod')
+        notgod.set_password('foo')
+        notgod.save()
+        self.client.login(username='notgod', password='foo')
+        response = self.client.get('/only-god/test/')
+        self.assertEqual(response.status_code, 403)
