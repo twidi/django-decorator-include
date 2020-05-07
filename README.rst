@@ -28,20 +28,34 @@ Usage
 
 ``decorator_include`` is intended for use in URL confs as a replacement for the
 ``django.conf.urls.include`` function. It works in almost the same way as
-``include``, however the first argument should be either a decorator or an
-iterable of decorators to apply, in reverse order, to all included views. Here
-is an example URL conf::
+``include`` however the first argument should be either a decorator or an
+iterable of decorators to apply to all included views (if an iterable, the order of the
+decorators is the order in which the functions will be applied on the views).
+Herei s an example URL conf::
 
+    from django.contrib import admin
+    from django.core.exceptions import PermissionDenied
     from django.urls import path
-    from django.contrib.auth.decorators import login_required
+    from django.contrib.auth.decorators import login_required, user_passes_test
 
     from decorator_include import decorator_include
 
     from mysite.views import index
 
+    def only_user(username):
+        def check(user):
+            if user.is_authenticated and user.username == username:
+                return True
+            raise PermissionDenied
+        return user_passes_test(check)
+
     urlpatterns = [
         path('', views.index, name='index'),
+        # will redirect to login page if not authenticated
         path('secret/', decorator_include(login_required, 'mysite.secret.urls')),
+        # will redirect to login page if not authenticated
+        # will return a 403 http error if the user does not have the "god" username
+        path('admin/', decorator_include([login_required, only_user('god')], admin.site.urls),
     ]
 
 
@@ -53,6 +67,8 @@ Django versions Python versions
 =============== ==================
 2.0             3.4, 3.5, 3.6, 3.7
 2.1             3.5, 3.6, 3.7
+2.2             3.5, 3.6, 3.7, 3.8
+3.0             3.6, 3.7, 3.8
 =============== ==================
 
 All library versions to use for old Django/Python support
@@ -67,8 +83,10 @@ Django versions Python versions         Library versions
 1.8             2.7, 3.2, 3.3, 3.4, 3.5 1.3
 1.9, 1.10       2.7, 3.4, 3.5           1.3
 1.11            2.7, 3.4, 3.5, 3.6      1.4.x (>=1.4.1,<2)
-2.0             3.4, 3.5, 3.6, 3.7      2.0
-2.1             3.5, 3.6, 3.7           2.1
+2.0             3.4, 3.5, 3.6, 3.7      3.0
+2.1             3.5, 3.6, 3.7           3.0
+2.2             3.5, 3.6, 3.7, 3.8      3.0
+3.0             3.6, 3.7, 3.8           3.0
 =============== ======================= ==================
 
 
