@@ -8,7 +8,6 @@ from importlib import import_module
 from os import path
 
 import pkg_resources
-
 from django.urls import URLPattern, URLResolver, include
 from django.utils.functional import cached_property
 
