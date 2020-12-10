@@ -1,0 +1,65 @@
+name: build
+
+on:
+  - pull_request
+  - push
+
+jobs:
+  build:
+    name: ${{ matrix.toxenv }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - python: 3.x
+            toxenv: lint
+          - python: 3.4
+            toxenv: py34-django20
+          - python: 3.5
+            toxenv: py35-django20
+          - python: 3.6
+            toxenv: py36-django20
+          - python: 3.7
+            toxenv: py37-django20
+          - python: 3.5
+            toxenv: py35-django21
+          - python: 3.6
+            toxenv: py36-django21
+          - python: 3.7
+            toxenv: py37-django21
+          - python: 3.5
+            toxenv: py35-django22
+          - python: 3.6
+            toxenv: py36-django22
+          - python: 3.7
+            toxenv: py37-django22
+          - python: 3.8
+            toxenv: py38-django22
+          - python: 3.6
+            toxenv: py36-django30
+          - python: 3.7
+            toxenv: py37-django30
+          - python: 3.8
+            toxenv: py38-django30
+          - python: 3.6
+            toxenv: py36-djangomaster
+          - python: 3.7
+            toxenv: py37-djangomaster
+          - python: 3.8
+            toxenv: py38-djangomaster
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Install tox
+        run: python -m pip install tox
+
+      - name: Run tox
+        run: tox -e ${{ matrix.toxenv }}
