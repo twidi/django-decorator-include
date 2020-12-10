@@ -21,18 +21,32 @@ jobs:
             toxenv: py37-django22
           - python: 3.8
             toxenv: py38-django22
+          - python: 3.9
+            toxenv: py39-django22
           - python: 3.6
             toxenv: py36-django30
           - python: 3.7
             toxenv: py37-django30
           - python: 3.8
             toxenv: py38-django30
+          - python: 3.9
+            toxenv: py39-django30
+          - python: 3.6
+            toxenv: py36-django31
+          - python: 3.7
+            toxenv: py37-django31
+          - python: 3.8
+            toxenv: py38-django31
+          - python: 3.9
+            toxenv: py39-django31
           - python: 3.6
             toxenv: py36-djangomaster
           - python: 3.7
             toxenv: py37-djangomaster
           - python: 3.8
             toxenv: py38-djangomaster
+          - python: 3.9
+            toxenv: py39-djangomaster
 
     steps:
       - uses: actions/checkout@v2
