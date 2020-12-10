@@ -15,22 +15,6 @@ jobs:
         include:
           - python: 3.x
             toxenv: lint
-          - python: 3.4
-            toxenv: py34-django20
-          - python: 3.5
-            toxenv: py35-django20
-          - python: 3.6
-            toxenv: py36-django20
-          - python: 3.7
-            toxenv: py37-django20
-          - python: 3.5
-            toxenv: py35-django21
-          - python: 3.6
-            toxenv: py36-django21
-          - python: 3.7
-            toxenv: py37-django21
-          - python: 3.5
-            toxenv: py35-django22
           - python: 3.6
             toxenv: py36-django22
           - python: 3.7
