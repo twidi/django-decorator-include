@@ -101,9 +101,9 @@ Grab the sources from Github::
 
 
 Then go into the newly created ``django-decorator-include`` directory and install
-the few needed libraries::
+the package in editable mode::
 
-    pip install -r requirements.txt
+    pip install -e .
 
 
 To run the tests, this library provides a test project, so you can launch
@@ -115,9 +115,29 @@ Or simply launch the ``runtests.sh`` script (it will run this exact command)::
 
     ./runtests.sh
 
+This project uses `pre-commit`_ to automatically run `flake8`_ and `isort`_ on
+every commit. If you haven't already, first install pre-commit using the
+project's documentation. Then, to enable pre-commit for
+django-decorator-include::
+
+    pre-commit install
+
+After that, the next commit will run the tools on changed files. If you want to
+run the pre-commit hooks on all files, use::
+
+    pre-commit run --all-files
+
+The above command is also available as a tox environment::
+
+    tox -e lint
+
 Base your work on the ``develop`` branch. Iit should be the default branch on
 git assuming you used the ``-b develop`` argument on the ``git clone``
 command as shown above.
 
 When creating the pull request, ensure you are using the correct base
 (twidi/django-decorator-include on develop).
+
+.. _pre-commit: https://pre-commit.com/
+.. _flake8: https://flake8.pycqa.org/
+.. _isort: https://pycqa.github.io/isort/
