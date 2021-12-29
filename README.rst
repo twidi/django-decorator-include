@@ -31,7 +31,7 @@ Usage
 ``include`` however the first argument should be either a decorator or an
 iterable of decorators to apply to all included views (if an iterable, the order of the
 decorators is the order in which the functions will be applied on the views).
-Herei s an example URL conf::
+Here is an example URL conf::
 
     from django.contrib import admin
     from django.core.exceptions import PermissionDenied
