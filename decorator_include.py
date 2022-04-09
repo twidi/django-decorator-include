@@ -5,24 +5,17 @@ reverse order, to all views in the included urlconf.
 """
 
 from importlib import import_module
-from os import path
 
-import pkg_resources
 from django.urls import URLPattern, URLResolver, include
 from django.utils.functional import cached_property
 
 
 def _extract_version(package_name):
     try:
-        # if package is installed
-        version = pkg_resources.get_distribution(package_name).version
-    except pkg_resources.DistributionNotFound:
-        # if not installed, so we must be in source, with ``setup.cfg`` available
-        from setuptools.config import read_configuration
-        _conf = read_configuration(path.join(
-            path.dirname(__file__), 'setup.cfg')
-        )
-        version = _conf['metadata']['version']
+        import importlib.metadata as importlib_metadata
+    except ImportError:  # for python < 3.8
+        import importlib_metadata
+    version = importlib_metadata.version(package_name)
 
     return tuple(int(part) for part in version.split('.') if part.isnumeric())
 
