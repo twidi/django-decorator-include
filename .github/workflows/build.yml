@@ -47,7 +47,8 @@ jobs:
             toxenv: py38-djangomaster
           - python: 3.9
             toxenv: py39-djangomaster
-
+          - python: "3.10"
+            toxenv: py310-djangomaster
     steps:
       - uses: actions/checkout@v2
 
