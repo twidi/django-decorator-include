@@ -40,15 +40,27 @@ jobs:
           - python: 3.9
             toxenv: py39-django31
           - python: 3.6
-            toxenv: py36-djangomaster
+            toxenv: py36-django32
           - python: 3.7
-            toxenv: py37-djangomaster
+            toxenv: py37-django32
           - python: 3.8
-            toxenv: py38-djangomaster
+            toxenv: py38-django32
           - python: 3.9
-            toxenv: py39-djangomaster
+            toxenv: py39-django32
           - python: "3.10"
-            toxenv: py310-djangomaster
+            toxenv: py310-django32
+          - python: 3.8
+            toxenv: py38-django40
+          - python: 3.8
+            toxenv: py38-django40
+          - python: "3.10"
+            toxenv: py310-django40
+          - python: 3.8
+            toxenv: py38-django41
+          - python: 3.9
+            toxenv: py39-django41
+          - python: "3.10"
+            toxenv: py310-django41
     steps:
       - uses: actions/checkout@v2
 

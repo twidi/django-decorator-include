@@ -69,6 +69,8 @@ Django versions Python versions
 3.0             3.6, 3.7, 3.8, 3.9
 3.1             3.6, 3.7, 3.8, 3.9
 3.2             3.6, 3.7, 3.8, 3.9, 3.10
+4.0             3.8, 3.9, 3.10
+4.1             3.8, 3.9, 3.10
 =============== ========================
 
 All library versions to use for old Django/Python support
