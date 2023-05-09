@@ -61,6 +61,13 @@ jobs:
             toxenv: py39-django41
           - python: "3.10"
             toxenv: py310-django41
+          - python: "3.11"
+            toxenv: py311-django41
+          - python: "3.10"
+            toxenv: py310-django42
+          - python: "3.11"
+            toxenv: py311-django42
+
     steps:
       - uses: actions/checkout@v2
 
