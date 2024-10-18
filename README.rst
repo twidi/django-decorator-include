@@ -9,16 +9,16 @@ based on the original work from Jeff Kistler on
 https://github.com/jeffkistler/django-decorator-include.
 
 .. image:: https://img.shields.io/pypi/v/django-decorator-include.svg
-    :target: https://img.shields.io/pypi/v/django-decorator-include.svg
+    :target: https://pypi.org/project/django-decorator-include/
 
 .. image:: https://github.com/twidi/django-decorator-include/workflows/build/badge.svg
     :target: https://github.com/twidi/django-decorator-include/actions?query=workflow%3Abuild
 
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
-    :target: https://img.shields.io/badge/code%20style-black-000000.svg
+    :target: https://github.com/twidi/django-decorator-include
 
 .. image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
-    :target: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
+    :target: https://github.com/twidi/django-decorator-include
 
 Installation
 ------------
