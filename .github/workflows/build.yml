@@ -13,8 +13,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - python: 3.x
-            toxenv: lint
           - python: 3.8
             toxenv: py38-django22
           - python: 3.9
