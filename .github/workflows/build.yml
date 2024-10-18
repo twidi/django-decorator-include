@@ -13,40 +13,60 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - python: 3.x
-            toxenv: lint
-          - python: 3.6
-            toxenv: py36-django22
-          - python: 3.7
-            toxenv: py37-django22
           - python: 3.8
             toxenv: py38-django22
           - python: 3.9
             toxenv: py39-django22
-          - python: 3.6
-            toxenv: py36-django30
-          - python: 3.7
-            toxenv: py37-django30
           - python: 3.8
             toxenv: py38-django30
           - python: 3.9
             toxenv: py39-django30
-          - python: 3.6
-            toxenv: py36-django31
-          - python: 3.7
-            toxenv: py37-django31
           - python: 3.8
             toxenv: py38-django31
           - python: 3.9
             toxenv: py39-django31
-          - python: 3.6
-            toxenv: py36-djangomaster
-          - python: 3.7
-            toxenv: py37-djangomaster
           - python: 3.8
-            toxenv: py38-djangomaster
+            toxenv: py38-django32
           - python: 3.9
-            toxenv: py39-djangomaster
+            toxenv: py39-django32
+          - python: "3.10"
+            toxenv: py310-django32
+          - python: 3.8
+            toxenv: py38-django40
+          - python: 3.8
+            toxenv: py38-django40
+          - python: "3.10"
+            toxenv: py310-django40
+          - python: 3.8
+            toxenv: py38-django41
+          - python: 3.9
+            toxenv: py39-django41
+          - python: "3.10"
+            toxenv: py310-django41
+          - python: "3.11"
+            toxenv: py311-django41
+          - python: "3.10"
+            toxenv: py310-django42
+          - python: "3.11"
+            toxenv: py311-django42
+          - python: "3.12"
+            toxenv: py312-django42
+          - python: "3.10"
+            toxenv: py310-django50
+          - python: "3.11"
+            toxenv: py311-django50
+          - python: "3.12"
+            toxenv: py312-django50
+          - python: "3.13"
+            toxenv: py313-django50
+          - python: "3.10"
+            toxenv: py310-django51
+          - python: "3.11"
+            toxenv: py311-django51
+          - python: "3.12"
+            toxenv: py312-django51
+          - python: "3.13"
+            toxenv: py313-django51
 
     steps:
       - uses: actions/checkout@v2

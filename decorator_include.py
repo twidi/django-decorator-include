@@ -5,35 +5,29 @@ reverse order, to all views in the included urlconf.
 """
 
 from importlib import import_module
-from os import path
 
-import pkg_resources
 from django.urls import URLPattern, URLResolver, include
 from django.utils.functional import cached_property
 
 
 def _extract_version(package_name):
     try:
-        # if package is installed
-        version = pkg_resources.get_distribution(package_name).version
-    except pkg_resources.DistributionNotFound:
-        # if not installed, so we must be in source, with ``setup.cfg`` available
-        from setuptools.config import read_configuration
-        _conf = read_configuration(path.join(
-            path.dirname(__file__), 'setup.cfg')
-        )
-        version = _conf['metadata']['version']
+        import importlib.metadata as importlib_metadata
+    except ImportError:  # for python < 3.8
+        import importlib_metadata
+    version = importlib_metadata.version(package_name)
 
-    return tuple(int(part) for part in version.split('.') if part.isnumeric())
+    return tuple(int(part) for part in version.split(".") if part.isnumeric())
 
 
-VERSION = _extract_version('django_decorator_include')
+VERSION = _extract_version("django_decorator_include")
 
 
 class DecoratedPatterns(object):
     """
     A wrapper for an urlconf that applies a decorator to all its views.
     """
+
     def __init__(self, urlconf_module, decorators):
         # ``urlconf_module`` may be:
         #   - an object with an ``urlpatterns`` attribute
@@ -70,7 +64,7 @@ class DecoratedPatterns(object):
     @cached_property
     def urlpatterns(self):
         # urlconf_module might be a valid set of patterns, so we default to it.
-        patterns = getattr(self.urlconf_module, 'urlpatterns', self.urlconf_module)
+        patterns = getattr(self.urlconf_module, "urlpatterns", self.urlconf_module)
         return [self.decorate_pattern(pattern) for pattern in patterns]
 
     @cached_property
@@ -82,7 +76,7 @@ class DecoratedPatterns(object):
 
     @cached_property
     def app_name(self):
-        return getattr(self.urlconf_module, 'app_name', None)
+        return getattr(self.urlconf_module, "app_name", None)
 
 
 def decorator_include(decorators, arg, namespace=None):
