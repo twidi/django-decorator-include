@@ -1,0 +1,17 @@
+name: Feature Request
+description: Request an enhancement or new feature.
+body:
+- type: input
+  id: linked_issue
+  attributes:
+    label: Is your proposal related to a problem/issue?
+    description: Please reference any issues linked to this request
+  validations:
+    required: false
+- type: textarea
+  id: description
+  attributes:
+    label: Description
+    description: Please describe your feature request with appropriate detail.
+  validations:
+    required: true
