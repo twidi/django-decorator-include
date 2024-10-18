@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Release *v3.1* - ``TBC``
+-------------------------------
+* Updated to include support for Python < 3.14 and Django <5.2
+* Updated to use Black along with Flake8 and iSort
+
 Release *v3.0* - ``2020-05-07``
 -------------------------------
 * Handle namespace/app_name the same way as Django `include` function

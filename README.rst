@@ -132,7 +132,7 @@ Or simply launch the ``runtests.sh`` script (it will run this exact command)::
 
     ./runtests.sh
 
-This project uses `pre-commit`_ to automatically run `flake8`_ and `isort`_ on
+This project uses `pre-commit`_ to automatically run `black`_ , `flake8`_ and `isort`_ on
 every commit. If you haven't already, first install pre-commit using the
 project's documentation. Then, to enable pre-commit for
 django-decorator-include::
@@ -158,3 +158,5 @@ When creating the pull request, ensure you are using the correct base
 .. _pre-commit: https://pre-commit.com/
 .. _flake8: https://flake8.pycqa.org/
 .. _isort: https://pycqa.github.io/isort/
+.. _black: https://github.com/psf/black/
+
