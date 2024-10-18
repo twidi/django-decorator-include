@@ -3,16 +3,22 @@ django-decorator-include
 
 Include Django URL patterns with decorators.
 
-Maintained by Stéphane "Twidi" Angel, and Jon Dufresne on
+Maintained by Steve Mapes, Stéphane "Twidi" Angel, and Jon Dufresne on
 https://github.com/twidi/django-decorator-include
 based on the original work from Jeff Kistler on
 https://github.com/jeffkistler/django-decorator-include.
 
-.. image:: https://badge.fury.io/py/django-decorator-include.svg
-    :target: https://badge.fury.io/py/django-decorator-include
+.. image:: https://img.shields.io/pypi/v/django-decorator-include.svg?style=for-the-badge
+    :target: https://img.shields.io/pypi/v/django-decorator-include.svg?style=for-the-badge
 
 .. image:: https://github.com/twidi/django-decorator-include/workflows/build/badge.svg
     :target: https://github.com/twidi/django-decorator-include/actions?query=workflow%3Abuild
+
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg?style=for-the-badge
+    :target: https://img.shields.io/badge/code%20style-black-000000.svg?style=for-the-badge
+
+.. image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=for-the-badge
+    :target: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=for-the-badge
 
 Installation
 ------------
@@ -21,7 +27,6 @@ Assuming you have pip installed, run the following command to install from
 PyPI::
 
     pip install django-decorator-include
-
 
 Usage
 -----

@@ -1,7 +1,7 @@
 Changelog
 =========
 
-Release *v3.1* - ``TBC``
+Release *v3.1* - ``2024-10-18``
 -------------------------------
 * Updated to include support for Python < 3.14 and Django <5.2
 * Updated to use Black along with Flake8 and iSort
