@@ -1,6 +1,10 @@
 Changelog
 =========
 
+Release *v3.2* - ``2024-10-21``
+-------------------------------
+* Updated tox test runner to include Python 3.14 and Django 5.1
+
 Release *v3.1* - ``2024-10-18``
 -------------------------------
 * Updated to include support for Python < 3.14 and Django <5.2

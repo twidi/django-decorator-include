@@ -108,10 +108,10 @@ Django versions Python versions                  Library versions
 4.2             3.10, 3.11, 3.12                 3.1
 4.2             3.10, 3.11, 3.12                 3.1
 5.0             3.10, 3.11, 3.12, 3.13           3.1
-5.1             3.10, 3.11, 3.12, 3.13, 3.14     3.1.x
+5.1             3.10, 3.11, 3.12, 3.13, 3.14     3.1, 3.2 *
 =============== =============================== ==================
 
-Python 3.14 flagged as supported added in 3.1.1
+* Python 3.14 flagged as supported added in 3.2
 
 Development
 -----------
