@@ -67,7 +67,7 @@ jobs:
             toxenv: py312-django51
           - python: "3.13"
             toxenv: py313-django51
-          - python: "3.14"
+          - python: "3.14.0-alpha.1"
             toxenv: py314-django51
 
     steps:
