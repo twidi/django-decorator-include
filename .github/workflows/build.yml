@@ -92,13 +92,13 @@ jobs:
           - python: "3.14"
             toxenv: py314-django61
           - python: "3.15"
-            toxenv: py314-django52
+            toxenv: py315-django52
             allow-failure: true
           - python: "3.15"
-            toxenv: py314-django60
+            toxenv: py315-django60
             allow-failure: true
           - python: "3.15"
-            toxenv: py314-django61
+            toxenv: py315-django61
             allow-failure: true
 
     steps:
