@@ -1,6 +1,10 @@
 Changelog
 =========
 
+Release *v3.4* - ``2026-06-22``
+-------------------------------
+* Updated the project including tox to support Django 6.0, 6.1a1, Python 3.14 and Python 3.15
+
 Release *v3.3* - ``2025-01-16``
 -------------------------------
 * Updated tox test runner to include Django 5.2

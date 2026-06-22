@@ -69,16 +69,37 @@ jobs:
             toxenv: py312-django51
           - python: "3.12"
             toxenv: py312-django52
+          - python: "3.12"
+            toxenv: py312-django60
+          - python: "3.12"
+            toxenv: py312-django61
           - python: "3.13"
             toxenv: py313-django50
           - python: "3.13"
             toxenv: py313-django51
           - python: "3.13"
             toxenv: py313-django52
-          - python: "3.14.0-alpha.1"
+          - python: "3.13"
+            toxenv: py313-django60
+          - python: "3.13"
+            toxenv: py313-django61
+          - python: "3.14"
             toxenv: py314-django51
-          - python: "3.14.0-alpha.1"
+          - python: "3.14"
             toxenv: py314-django52
+          - python: "3.14"
+            toxenv: py314-django60
+          - python: "3.14"
+            toxenv: py314-django61
+          - python: "3.15"
+            toxenv: py314-django52
+            allow-failure: true
+          - python: "3.15"
+            toxenv: py314-django60
+            allow-failure: true
+          - python: "3.15"
+            toxenv: py314-django61
+            allow-failure: true
 
     steps:
       - uses: actions/checkout@v4
@@ -87,6 +108,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
+
+      - name: Upgrade packaging tools on Python 3.15
+        if: matrix.python-version == '3.15'
+        run: python -m pip install --upgrade pip setuptools wheel
 
       - name: Install tox
         run: python -m pip install tox
