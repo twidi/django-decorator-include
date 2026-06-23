@@ -167,6 +167,17 @@ command as shown above.
 When creating the pull request, ensure you are using the correct base
 (twidi/django-decorator-include on develop).
 
+Base your work on the ``develop`` branch. It should be the default branch on
+git assuming you used the ``-b develop`` argument on the ``git clone``
+command as shown above.
+
+To build the project, use twine rather then setup.py ::
+
+    pip install --upgrade build twine
+    python -m build
+
+
+
 .. _pre-commit: https://pre-commit.com/
 .. _flake8: https://flake8.pycqa.org/
 .. _isort: https://pycqa.github.io/isort/

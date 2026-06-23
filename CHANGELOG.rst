@@ -1,9 +1,17 @@
 Changelog
 =========
 
+Released *v3.5* - ``2026-06-23``
+-------------------------------
+* Moving the project over to pyproject.toml and twine and away from the legacy setup.py bdist_wheel mechanism.
+Created pyproject.toml to replace setup.cfg, setup.py and MANIFEST.in.
+
+* No changed to the core code
+
 Release *v3.4* - ``2026-06-22``
 -------------------------------
 * Updated the project including tox to support Django 6.0, 6.1a1, Python 3.14 and Python 3.15
+* No changed to the core code
 
 Release *v3.3* - ``2025-01-16``
 -------------------------------
