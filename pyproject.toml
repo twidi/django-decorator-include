@@ -1,9 +1,5 @@
 [build-system]
-requires = [
-    "setuptools==75.3.4; python_version<'3.9'",
-    "setuptools>=77.0; python_version>='3.9'",
-    "wheel",
-]
+requires = ["setuptools>=77.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -13,6 +9,7 @@ description = "Include Django URL patterns with decorators"
 readme = "README.rst"
 requires-python = ">=3.6"
 license = "BSD-2-Clause"
+license-files = ["LICENSE"]
 keywords = ["django", "urls"]
 authors = [
     { name = "Jeff Kistler", email = "jeff@jeffkistler.com" },
@@ -37,9 +34,6 @@ classifiers = [
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.6",
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -61,7 +55,6 @@ Source = "https://github.com/twidi/django-decorator-include"
 [tool.setuptools]
 py-modules = ["decorator_include"]
 zip-safe = true
-license-files = ["LICENSE"]
 
 [tool.flake8]
 max-line-length = 119

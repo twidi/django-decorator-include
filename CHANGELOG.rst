@@ -1,11 +1,19 @@
 Changelog
 =========
 
+Not Released *v3.6* - ``???``
+-------------------------------
+* Dropped support for Python 3.9.
+* Dropped support for Django < 5.2
+
+If you need to use older versions of Python/Django please use older releases of this package.
+
 Released *v3.5* - ``2026-06-23``
 -------------------------------
 * Moving the project over to pyproject.toml and twine and away from the legacy setup.py bdist_wheel mechanism.
 Created pyproject.toml to replace setup.cfg, setup.py and MANIFEST.in.
 
+* Dropped support for Python 3.8.
 * No changed to the core code
 
 Release *v3.4* - ``2026-06-22``

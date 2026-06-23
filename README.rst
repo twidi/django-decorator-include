@@ -71,13 +71,13 @@ Supported versions
 =============== ========================
 Django versions Python versions
 =============== ========================
-2.2             3.6, 3.7, 3.8, 3.9
-3.0             3.6, 3.7, 3.8, 3.9
-3.1             3.6, 3.7, 3.8, 3.9
-3.2             3.6, 3.7, 3.8, 3.9, 3.10
-4.0             3.8, 3.9, 3.10
-4.1             3.8, 3.9, 3.10, 3.11
-4.2             3.8, 3.9, 3.10, 3.11, 3.12
+2.2             3.9
+3.0             3.9
+3.1             3.9
+3.2             3.9, 3.10
+4.0             3.9, 3.10
+4.1             3.9, 3.10, 3.11
+4.2             3.9, 3.10, 3.11, 3.12
 5.0             3.10, 3.11, 3.12, 3.13
 5.1             3.10, 3.11, 3.12, 3.13, 3.14
 5.2             3.10, 3.11, 3.12, 3.13, 3.14, 3.15
@@ -87,6 +87,9 @@ Django versions Python versions
 =============== ========================
 
 * Python 3.11 only works with Django 4.1.3+
+* Python 3.8 support dropped in version 3.5
+* Python < 3.10 and Django < 5.2 will be dropped in version 3.6
+
 
 All library versions to use for old Django/Python support
 ---------------------------------------------------------
@@ -118,6 +121,7 @@ Django versions Python versions                       Library versions
 =============== ===================================== ==================
 
 * Python 3.14 flagged as supported added in 3.2
+* Python 3.8 support was dropped in version 3.5
 
 Development
 -----------
